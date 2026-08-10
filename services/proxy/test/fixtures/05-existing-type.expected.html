@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 05 — Scripts with Existing Type Attribute</title>
+  <!-- GA script with existing type="text/javascript" — type replaced by Laravel's regex -->
+  <!-- Laravel: preg_replace('/\btype\s*=\s*["\'][^"\']*["\']/', '', $fullTag) then adds new type -->
+  <script  src="https://www.googletagmanager.com/gtag/js?id=UA-12345" type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="google-analytics" data-ycookies-service="google-analytics"></script>
+  <!-- Module script with Hotjar — type replaced -->
+  <script  src="https://static.hotjar.com/c/hotjar-module.js" type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="hotjar" data-ycookies-service="hotjar"></script>
+  <!-- JSON-LD (type="application/ld+json") with no src — NOT blocked (no matching rule) -->
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebPage","name":"Test"}
+  </script>
+</head>
+<body>
+  <h1>Existing Type Attribute</h1>
+</body>
+</html>

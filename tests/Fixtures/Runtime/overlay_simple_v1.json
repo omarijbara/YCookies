@@ -1,0 +1,10 @@
+{
+    "overlay_id": "blog_overlay",
+    "ui_config": {
+        "layout": "bottom_bar",
+        "position": "bottom"
+    },
+    "features": {
+        "lna_shield": false
+    }
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 06 — Handle and ID/data-handle Matching</title>
+  <!-- Script matched by handle substring in src — should be BLOCKED -->
+  <script src="https://cdn.example.com/gtag/js?v=2"></script>
+  <!-- Script matched by id attribute — should be BLOCKED -->
+  <script id="facebook-pixel-init" src="https://cdn.example.com/pixel.js"></script>
+  <!-- Script matched by data-handle attribute — should be BLOCKED -->
+  <script data-handle="hotjar-tracking" src="https://cdn.example.com/hj.js"></script>
+  <!-- Script with no matching handle, id, or data-handle — should NOT be blocked -->
+  <script id="app-init" src="https://cdn.example.com/app.js"></script>
+</head>
+<body>
+  <h1>Handle/ID Matching</h1>
+</body>
+</html>

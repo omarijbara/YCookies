@@ -1,0 +1,37 @@
+{
+  "name": "ycookies-proxy",
+  "version": "1.0.0",
+  "description": "YCookies streaming reverse proxy — data-plane service",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test/regression-gate.mjs",
+    "test:gate": "node test/regression-gate.mjs",
+    "test:parity": "node test/blocker-parity.test.mjs",
+    "test:cookies": "node test/cookie-filter.test.mjs",
+    "test:stream": "node test/stream-parity.test.mjs",
+    "test:safety": "node test/self-protection.test.mjs",
+    "test:csp": "node test/csp-nonce.test.mjs"
+  },
+  "dependencies": {
+    "@fastify/rate-limit": "^10.3.0",
+    "@fastify/websocket": "^11.2.0",
+    "@sentry/node": "^10.45.0",
+    "dotenv": "^16.4.0",
+    "fastify": "^5.3.0",
+    "fastify-metrics": "^12.1.0",
+    "ioredis": "^5.4.0",
+    "parse5": "^8.0.0",
+    "parse5-sax-parser": "^8.0.0",
+    "undici": "^7.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "pino-pretty": "^13.1.3"
+  }
+}

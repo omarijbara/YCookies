@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 07 — Mixed Case and Malformed HTML</title>
+  <!-- UPPERCASE SCRIPT TAG — Laravel regex is case-insensitive (/i flag), should be BLOCKED -->
+  <SCRIPT SRC="https://www.googletagmanager.com/gtag/js?id=UA-12345"></SCRIPT>
+  <!-- Mixed case — should be BLOCKED -->
+  <Script Src="https://connect.facebook.net/en_US/fbevents.js"></Script>
+  <!-- Extra whitespace in attributes — should be BLOCKED -->
+  <script   src = "https://static.hotjar.com/c/hotjar-12345.js"  ></script>
+  <!-- Self-closing script (invalid HTML but exists in wild) — should be BLOCKED -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=UA-99999" />
+  <!-- Single-quoted attributes — should be BLOCKED -->
+  <script src='https://connect.facebook.net/fr_FR/sdk.js'></script>
+</head>
+<body>
+  <h1>Mixed Case and Malformed HTML</h1>
+</body>
+</html>

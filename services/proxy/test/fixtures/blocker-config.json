@@ -1,0 +1,45 @@
+{
+  "script_blockers": [
+    {
+      "key": "google-analytics",
+      "service_key": "google-analytics",
+      "is_active": true,
+      "handles": ["googletagmanager.com", "google-analytics.com", "gtag/js"],
+      "phrases": ["GoogleAnalyticsObject", "ga('create"]
+    },
+    {
+      "key": "facebook-pixel",
+      "service_key": "facebook",
+      "is_active": true,
+      "handles": ["connect.facebook.net", "fbevents.js"],
+      "phrases": ["fbq("]
+    },
+    {
+      "key": "hotjar",
+      "service_key": "hotjar",
+      "is_active": true,
+      "handles": ["static.hotjar.com", "hotjar.com"],
+      "phrases": []
+    }
+  ],
+  "content_blockers": [
+    {
+      "key": "youtube",
+      "service_key": "youtube",
+      "is_active": true,
+      "hosts": ["youtube.com", "youtube-nocookie.com", "youtu.be"]
+    },
+    {
+      "key": "google-maps",
+      "service_key": "google-maps",
+      "is_active": true,
+      "hosts": ["google.com/maps", "maps.google.com"]
+    },
+    {
+      "key": "vimeo",
+      "service_key": "vimeo",
+      "is_active": true,
+      "hosts": ["player.vimeo.com", "vimeo.com"]
+    }
+  ]
+}

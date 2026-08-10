@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 05 — Scripts with Existing Type Attribute</title>
+  <!-- GA script with existing type="text/javascript" — should be BLOCKED, type replaced -->
+  <script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-12345"></script>
+  <!-- Module script with GA — should be BLOCKED, type replaced -->
+  <script type="module" src="https://static.hotjar.com/c/hotjar-module.js"></script>
+  <!-- JSON-LD (type="application/ld+json") with no src — should NOT be blocked -->
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebPage","name":"Test"}
+  </script>
+</head>
+<body>
+  <h1>Existing Type Attribute</h1>
+</body>
+</html>

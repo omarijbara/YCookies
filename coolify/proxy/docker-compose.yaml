@@ -1,0 +1,70 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# YCookies PROXY Stack — Data Plane
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# This is the PROXY half of the split architecture. It contains ONLY:
+#   - node-proxy (Fastify streaming proxy)
+#
+# It connects to the admin stack's Redis and Laravel via the
+# ycookies-shared external Docker network.
+#
+# Deploying this stack does NOT restart Laravel/MySQL/Redis.
+# Admin deploys do NOT restart this stack. duftz.de stays live.
+#
+# For single-stack dev, use docker-compose.yml instead.
+# ══════════════════════════════════════════════════════════════════════════════
+
+services:
+  # ────────────────────────────────────────────────────
+  # Node Proxy — data-plane (Fastify + Undici)
+  # Streams HTML mutation, script blocking, banner injection
+  #
+  # Connects to admin stack services via ycookies-shared:
+  #   - http://laravel:80           (config API)
+  #   - redis://app-redis:6379      (push config + pub/sub)
+  # ────────────────────────────────────────────────────
+  node-proxy:
+    build:
+      context: ./services/proxy
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    stop_signal: SIGTERM
+    stop_grace_period: 30s
+    environment:
+      - NODE_ENV=production
+      - PROXY_PORT=80
+      - LARAVEL_URL=http://laravel:80
+      - LARAVEL_API_HOST=${ADMIN_HOST:-cookies.ypsilon.dev}
+      - PROXY_SHARED_SECRET=${SERVICE_BASE64_64_PROXY}
+      - REDIS_URL=redis://app-redis:6379
+      - CONFIG_CACHE_TTL=300
+      - LOG_LEVEL=info
+      - SENTRY_NODE_DSN=${SENTRY_NODE_DSN:-}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=coolify"
+      # Domain routing is managed by Coolify via docker_compose_domains.
+      # CoolifyService::syncDomains() patches the proxy app's domain list
+      # in Coolify, which auto-manages Traefik routing + SSL (Let's Encrypt).
+      - "traefik.http.services.ycookies-proxy.loadbalancer.server.port=80"
+    networks:
+      - coolify
+      - ycookies-shared
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:80/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    volumes:
+      - proxy-config-cache:/data/config-cache
+
+volumes:
+  proxy-config-cache:
+
+networks:
+  coolify:
+    external: true
+  ycookies-shared:
+    name: ycookies-shared
+    driver: bridge

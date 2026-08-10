@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 10 — Combined Scripts and Content</title>
+  <!-- GA — BLOCKED -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=UA-12345" type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="google-analytics" data-ycookies-service="google-analytics"></script>
+  <!-- GA inline init — NOT blocked (bare inline script, no matching attrs) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-12345');
+  </script>
+  <!-- App script — NOT blocked -->
+  <script src="/assets/js/app.js" defer></script>
+  <!-- YCookies manager — NEVER blocked (contains 'ycookies' in attributes) -->
+  <script src="https://app.ycookies.com/api/script/site123.js" id="ycookies-manager" defer></script>
+  <!-- FB inline with phrase in attribute — NOT blocked -->
+  <!-- "pixel-init" doesn't contain "connect.facebook.net" or "fbevents.js" handles -->
+  <!-- and "fbq(" phrase isn't in the opening tag attributes (it's in the body) -->
+  <script data-name="pixel-init">
+    fbq('init', '12345');
+    fbq('track', 'PageView');
+  </script>
+</head>
+<body>
+  <h1>Full Page Example</h1>
+  <!-- YouTube — BLOCKED -->
+  <div class="ycookies-content-blocker" data-ycookies-service="youtube" data-ycookies-original="PGlmcmFtZSBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL2FiYzEyMyIgd2lkdGg9IjU2MCIgaGVpZ2h0PSIzMTUiIGFsbG93PSJhdXRvcGxheSI+PC9pZnJhbWU+" style="background:#1f2937;color:#f3f4f6;padding:20px;text-align:center;border-radius:8px;font-family:sans-serif;"><p style="font-weight:bold;font-size:16px;">Content Blocked</p><p style="font-size:14px;opacity:0.8;">Please accept cookies to view this content.</p></div>
+  <p>Some text between embeds</p>
+  <!-- Self-hosted — NOT blocked -->
+  <iframe src="/local-widget.html" width="300" height="200"></iframe>
+  <!-- Vimeo — BLOCKED -->
+  <div class="ycookies-content-blocker" data-ycookies-service="vimeo" data-ycookies-original="PGlmcmFtZSBzcmM9Imh0dHBzOi8vcGxheWVyLnZpbWVvLmNvbS92aWRlby85OTk5OSIgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiPjwvaWZyYW1lPg==" style="background:#1f2937;color:#f3f4f6;padding:20px;text-align:center;border-radius:8px;font-family:sans-serif;"><p style="font-weight:bold;font-size:16px;">Content Blocked</p><p style="font-size:14px;opacity:0.8;">Please accept cookies to view this content.</p></div>
+</body>
+</html>

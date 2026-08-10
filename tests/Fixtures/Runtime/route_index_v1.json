@@ -1,0 +1,34 @@
+{
+    "routes": [
+        {
+            "pattern": "/about",
+            "overlay_id": "about_overlay",
+            "match_type": "exact",
+            "priority": 0
+        },
+        {
+            "pattern": "/blog/*",
+            "overlay_id": "blog_overlay",
+            "match_type": "wildcard",
+            "priority": 0
+        },
+        {
+            "pattern": "/docs/**",
+            "overlay_id": "docs_overlay",
+            "match_type": "globstar",
+            "priority": 0
+        },
+        {
+            "pattern": "/shop/*",
+            "overlay_id": "shop_overlay",
+            "match_type": "wildcard",
+            "priority": 10
+        },
+        {
+            "pattern": "/shop/checkout",
+            "overlay_id": "checkout_overlay",
+            "match_type": "exact",
+            "priority": 0
+        }
+    ]
+}

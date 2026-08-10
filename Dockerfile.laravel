@@ -1,0 +1,134 @@
+# ────────────────────────────────────────────────────
+# Dockerfile.laravel
+# Multi-stage build: Nginx + PHP-FPM for Laravel 12
+# ────────────────────────────────────────────────────
+
+# ── Stage 1: Install PHP dependencies ──
+FROM composer:2 AS composer-deps
+
+WORKDIR /app
+COPY . .
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --optimize-autoloader \
+    --prefer-dist \
+    --ignore-platform-reqs
+
+# ── Stage 2: Build frontend assets ──
+FROM node:22-alpine AS assets
+
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci --legacy-peer-deps
+COPY . .
+# Vite needs vendor/ for Filament CSS imports (theme.css → vendor/filament/...)
+COPY --from=composer-deps /app/vendor ./vendor
+RUN npm run build
+
+# ── Stage 3: Production image ──
+FROM php:8.2-fpm-alpine AS production
+
+# Install system deps + PHP extensions
+RUN apk add --no-cache \
+    nginx \
+    supervisor \
+    curl \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    oniguruma-dev \
+    icu-dev \
+    mariadb-client \
+    gzip \
+    nodejs \
+    npm \
+    docker-cli \
+    openssh-client \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install \
+    pdo_mysql \
+    mbstring \
+    zip \
+    gd \
+    intl \
+    opcache \
+    pcntl \
+    bcmath
+
+# Install Redis PHP extension
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && apk del .build-deps
+
+WORKDIR /app
+
+# Copy application source first, then built outputs on top
+# (built vendor/assets must overwrite any repo copies)
+COPY . .
+COPY --from=composer-deps /app/vendor ./vendor
+COPY --from=assets /app/public/build ./public/build
+
+# Set permissions
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache \
+    && chmod -R 775 /app/storage /app/bootstrap/cache
+
+# Allow www-data (PHP-FPM) to run docker commands via the mounted socket
+# The docker group GID must match the host's docker socket GID at runtime,
+# so we also handle this in the entrypoint
+RUN addgroup -g 999 docker 2>/dev/null || true \
+    && addgroup www-data docker 2>/dev/null || true
+
+# ── Nginx config (full — includes worker tuning + FastCGI buffers) ──
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+
+# ── Supervisor config (manages Nginx + PHP-FPM + crond) ──
+COPY docker/supervisord.conf /etc/supervisord.conf
+
+# ── Laravel scheduler (runs via crond managed by supervisor) ──
+COPY docker/scheduler-crontab /etc/crontabs/root
+
+# ── PHP production config ──
+COPY docker/php-production.ini /usr/local/etc/php/conf.d/production.ini
+
+# ── PHP-FPM pool config (20 children + 60s request timeout) ──
+COPY docker/www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# ── Entrypoint (migrations, caching, then supervisor) ──
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+    CMD curl -fs http://localhost/up || exit 1
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD []
+
+# ── Stage 4: Scanner image (with Node.js + Chromium) ──
+FROM production AS scanner
+
+# Install nodejs, npm, chromium, and dependencies required for Puppeteer
+RUN apk add --no-cache \
+    nodejs \
+    npm \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    git
+
+# Prevent puppeteer from downloading its own chromium (alpine has it)
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV CHROME_PATH=/usr/bin/chromium-browser
+
+# Install puppeteer globally so Browsershot can execute it
+RUN npm install -g puppeteer
+ENV NODE_PATH="/usr/local/lib/node_modules"

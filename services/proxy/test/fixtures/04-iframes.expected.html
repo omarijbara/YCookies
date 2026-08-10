@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 04 — Content Blocking (iframes)</title>
+</head>
+<body>
+  <h1>Embedded Content</h1>
+
+  <!-- YouTube iframe — should be BLOCKED by youtube content blocker -->
+  <div class="ycookies-content-blocker" data-ycookies-service="youtube" data-ycookies-original="PGlmcmFtZSBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL2RRdzR3OVdnWGNRIiB3aWR0aD0iNTYwIiBoZWlnaHQ9IjMxNSIgZnJhbWVib3JkZXI9IjAiIGFsbG93ZnVsbHNjcmVlbj48L2lmcmFtZT4=" style="background:#1f2937;color:#f3f4f6;padding:20px;text-align:center;border-radius:8px;font-family:sans-serif;"><p style="font-weight:bold;font-size:16px;">Content Blocked</p><p style="font-size:14px;opacity:0.8;">Please accept cookies to view this content.</p></div>
+
+  <!-- Google Maps iframe — should be BLOCKED by google-maps content blocker -->
+  <div class="ycookies-content-blocker" data-ycookies-service="google-maps" data-ycookies-original="PGlmcmFtZSBzcmM9Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vbWFwcy9lbWJlZD9wYj0hMW0xOCEuLi4iIHdpZHRoPSI2MDAiIGhlaWdodD0iNDUwIiBzdHlsZT0iYm9yZGVyOjA7IiBsb2FkaW5nPSJsYXp5Ij48L2lmcmFtZT4=" style="background:#1f2937;color:#f3f4f6;padding:20px;text-align:center;border-radius:8px;font-family:sans-serif;"><p style="font-weight:bold;font-size:16px;">Content Blocked</p><p style="font-size:14px;opacity:0.8;">Please accept cookies to view this content.</p></div>
+
+  <!-- Vimeo iframe — should be BLOCKED by vimeo content blocker -->
+  <div class="ycookies-content-blocker" data-ycookies-service="vimeo" data-ycookies-original="PGlmcmFtZSBzcmM9Imh0dHBzOi8vcGxheWVyLnZpbWVvLmNvbS92aWRlby8xMjM0NSIgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZyYW1lYm9yZGVyPSIwIiBhbGxvdz0iYXV0b3BsYXkiPjwvaWZyYW1lPg==" style="background:#1f2937;color:#f3f4f6;padding:20px;text-align:center;border-radius:8px;font-family:sans-serif;"><p style="font-weight:bold;font-size:16px;">Content Blocked</p><p style="font-size:14px;opacity:0.8;">Please accept cookies to view this content.</p></div>
+
+  <!-- Self-hosted iframe — should NOT be blocked (no matching host) -->
+  <iframe src="https://example.com/widget.html" width="300" height="200"></iframe>
+
+  <!-- iframe with no src — should NOT be blocked (no src to match) -->
+  <iframe id="dynamic-frame" width="100%" height="400"></iframe>
+</body>
+</html>

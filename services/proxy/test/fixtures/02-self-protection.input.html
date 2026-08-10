@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 02 — YCookies Self-Protection</title>
+  <!-- YCookies manager script — must NEVER be blocked -->
+  <script src="https://app.ycookies.com/api/script/abc123.js" id="ycookies-manager" defer></script>
+  <!-- YCookies LNA Shield — must NEVER be blocked -->
+  <script id="ycookies-lna-shield" nonce="abc123">/* LNA shield code */</script>
+  <!-- GA with ycookies in a data attribute — should still be BLOCKED (ycookies is in src, not in ycookies-related attr) -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=UA-12345" data-category="analytics"></script>
+</head>
+<body>
+  <h1>Self-Protection Test</h1>
+</body>
+</html>

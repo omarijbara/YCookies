@@ -1,0 +1,222 @@
+{
+    "site_id": "abc-123-def",
+    "domain": "example.com",
+    "consent_version": 3,
+    "cross_domain_enabled": false,
+    "cross_domains_list": [],
+    "ui_config": {
+        "layout": "box_modal",
+        "position": "center",
+        "trigger_mode": "interaction",
+        "colors": {
+            "primary": "#3b82f6",
+            "background": "#111827",
+            "text": "#f3f4f6",
+            "link": "#60a5fa"
+        },
+        "typography": {
+            "font_family": "system-ui, -apple-system, sans-serif",
+            "font_size": 15
+        },
+        "effects": {
+            "glassmorphism": false
+        },
+        "buttons": {
+            "show_accept_all": true,
+            "show_accept_essential": true,
+            "show_settings": true,
+            "show_save_consent": false,
+            "show_accept_essential_only": false
+        }
+    },
+    "translations": {
+        "banner": {
+            "title": "Cookie Settings",
+            "description": "We use cookies to improve your experience."
+        },
+        "buttons": {
+            "accept_all": "Accept All",
+            "accept_essential": "Essential Only",
+            "settings": "Settings"
+        }
+    },
+    "localization": {
+        "auto_detect": true,
+        "default_language": "en",
+        "show_switcher": true,
+        "current_is_rtl": false
+    },
+    "languages": {
+        "en": {"code": "en", "name": "English", "is_rtl": false},
+        "de": {"code": "de", "name": "Deutsch", "is_rtl": false}
+    },
+    "cookie_groups": [
+        {
+            "key": "essential",
+            "name": "Essential",
+            "description": "Required for the website to function.",
+            "is_required": true,
+            "is_preselected": true,
+            "services": [
+                {
+                    "key": "session-cookies",
+                    "name": "Session Cookies",
+                    "provider": null,
+                    "provider_details": null,
+                    "purpose": "Maintains user session",
+                    "integration_type": "browser_tag",
+                    "provider_key": null,
+                    "consent_mode_mapping": null,
+                    "cookies": [
+                        {"name": "PHPSESSID", "hostname": ".example.com", "lifetime": "Session", "purpose": "Session ID"}
+                    ],
+                    "payloads": null,
+                    "integrations": null
+                }
+            ]
+        },
+        {
+            "key": "marketing",
+            "name": "Marketing",
+            "description": "Used for targeted advertising.",
+            "is_required": false,
+            "is_preselected": false,
+            "services": [
+                {
+                    "key": "google-analytics",
+                    "name": "Google Analytics",
+                    "provider": "Google LLC",
+                    "provider_details": {
+                        "address": "1600 Amphitheatre Parkway, Mountain View, CA 94043, United States",
+                        "privacy_policy_url": "https://policies.google.com/privacy",
+                        "cookie_policy_url": null,
+                        "opt_out_url": "https://tools.google.com/dlpage/gaoptout"
+                    },
+                    "purpose": "Website analytics and usage tracking",
+                    "integration_type": "browser_tag",
+                    "provider_key": "google-analytics",
+                    "consent_mode_mapping": {
+                        "consent_signals": ["analytics_storage"]
+                    },
+                    "cookies": [
+                        {"name": "_ga", "hostname": ".example.com", "lifetime": "2 years", "purpose": "Analytics user ID"},
+                        {"name": "_ga_*", "hostname": ".example.com", "lifetime": "2 years", "purpose": "Analytics session"}
+                    ],
+                    "payloads": {
+                        "opt_in": "<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-XXXXX\"></script>",
+                        "opt_out": "",
+                        "fallback": ""
+                    },
+                    "integrations": {
+                        "gtm_id": null,
+                        "ga_id": "G-XXXXX",
+                        "pixel_id": null
+                    }
+                },
+                {
+                    "key": "meta-pixel",
+                    "name": "Meta Pixel",
+                    "provider": "Meta Platforms, Inc.",
+                    "provider_details": {
+                        "address": "1 Hacker Way, Menlo Park, CA 94025, United States",
+                        "privacy_policy_url": "https://www.facebook.com/privacy/policy/",
+                        "cookie_policy_url": null,
+                        "opt_out_url": null
+                    },
+                    "purpose": "Conversion tracking and retargeting",
+                    "integration_type": "browser_tag",
+                    "provider_key": "meta-pixel",
+                    "consent_mode_mapping": {
+                        "consent_signals": ["ad_storage", "ad_user_data", "ad_personalization"]
+                    },
+                    "cookies": [
+                        {"name": "_fbp", "hostname": ".example.com", "lifetime": "90 days", "purpose": "Browser ID"}
+                    ],
+                    "payloads": {
+                        "opt_in": "<script>!function(f,b,e,v,n,t,s){...}('PIXEL_ID')</script>",
+                        "opt_out": "",
+                        "fallback": ""
+                    },
+                    "integrations": {
+                        "gtm_id": null,
+                        "ga_id": null,
+                        "pixel_id": "PIXEL_ID"
+                    }
+                }
+            ]
+        }
+    ],
+    "script_blockers": [
+        {
+            "key": "ga-blocker",
+            "name": "Google Analytics Blocker",
+            "handles": ["googletagmanager.com/gtag", "google-analytics.com"],
+            "phrases": [],
+            "on_exist": "change_type",
+            "service": "google-analytics"
+        }
+    ],
+    "content_blockers": [
+        {
+            "key": "youtube-blocker",
+            "name": "YouTube Blocker",
+            "hosts": ["youtube.com", "youtube-nocookie.com", "youtu.be"],
+            "service": null,
+            "preview_image": null,
+            "html_code": null,
+            "css_code": null,
+            "js_code": null,
+            "text_placeholders": {}
+        }
+    ],
+    "cookie_policy": {
+        "mode": "allowlist",
+        "essential_patterns": ["PHPSESSID"],
+        "essential_prefixes": []
+    },
+    "tcm_config": {
+        "enabled": true,
+        "advanced_consent_mode": false,
+        "mapping": {
+            "marketing": ["ad_storage", "ad_user_data", "ad_personalization", "personalization_storage"],
+            "statistics": ["analytics_storage", "functionality_storage", "security_storage"]
+        },
+        "regional_defaults": [],
+        "has_google_services": true
+    },
+    "tcf_config": {
+        "enabled": false
+    },
+    "geo_rules": {
+        "EU": {"mode": "optin", "groups": ["essential"]}
+    },
+    "geo_restriction_eu": false,
+    "origin": {
+        "subdomain": null,
+        "auth_token": "tok_abc123",
+        "auth_token_legacy": null,
+        "auth_legacy_expires_at": null,
+        "url": "https://origin.example.com",
+        "ip": null,
+        "host": "example.com"
+    },
+    "proxy": {
+        "enabled": true,
+        "status": "active",
+        "engine": "node"
+    },
+    "bootstrapper": {
+        "script_url": "https://cookies.ypsilon.dev/api/script/abc-123-def.js",
+        "boot_url": "https://cookies.ypsilon.dev/api/boot/abc-123-def.js",
+        "static_loader_url": "https://cookies.ypsilon.dev/build/assets/manager-abc123.js",
+        "api_base": "https://cookies.ypsilon.dev"
+    },
+    "features": {
+        "lna_shield": true,
+        "geo_restriction_eu": false
+    },
+    "callbacks": {
+        "onReady": "window.ycookiesDispatchEvent(\"ready\")",
+        "onConsentUpdate": "window.ycookiesDispatchEvent(\"consent_update\")"
+    }
+}

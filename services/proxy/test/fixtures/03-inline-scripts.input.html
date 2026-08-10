@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 03 — Inline Scripts with Phrases</title>
+  <!-- Inline GA snippet with phrase "GoogleAnalyticsObject" — should be BLOCKED -->
+  <script>
+    window.GoogleAnalyticsObject = 'ga';
+    ga('create', 'UA-12345', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <!-- Inline FB pixel with phrase "fbq(" — should be BLOCKED -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    fbq('init', '12345');
+    fbq('track', 'PageView');
+  </script>
+  <!-- Normal inline script — should NOT be blocked -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Page loaded');
+    });
+  </script>
+</head>
+<body>
+  <h1>Inline Script Phrase Matching</h1>
+</body>
+</html>

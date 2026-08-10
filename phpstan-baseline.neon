@@ -1,0 +1,1873 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/AuditCompliance.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$services\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/AuditCompliance.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/DigestDiagnostic.php
+
+		-
+			message: '#^Cannot call method toDateString\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/DigestDiagnostic.php
+
+		-
+			message: '#^Offset ''vs_prev_day'' on string\|null in empty\(\) does not exist\.$#'
+			identifier: empty.offset
+			count: 1
+			path: app/Console/Commands/DigestDiagnostic.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: app/Console/Commands/DigestDiagnostic.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>alert_count" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Console/Commands/DigestDiagnostic.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>summary_status" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Console/Commands/DigestDiagnostic.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Console/Commands/DomainProvisionCommand.php
+
+		-
+			message: '#^Property App\\Models\\Domain\:\:\$site_id \(string\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Console/Commands/DomainProvisionCommand.php
+
+		-
+			message: '#^Property App\\Models\\Domain\:\:\$tcm_config \(string\|null\) does not accept array\<string, string\|true\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Console/Commands/DomainProvisionCommand.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/EnforceSubscriptionLimits.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$compile_inputs_hash\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/ManifestRolloutExecute.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$revision_number\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Console/Commands/ManifestRolloutExecute.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$compile_inputs_hash\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/ManifestRolloutPlan.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$revision_number\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/ManifestRolloutPlan.php
+
+		-
+			message: '#^Cannot call method diffInMinutes\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/RunAutoHealthChecks.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$scan_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/RunAutoScans.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$scans_this_month\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/RunAutoScans.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:canRunScan\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Console/Commands/RunAutoScans.php
+
+		-
+			message: '#^Cannot call method diffInMinutes\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/RunAutoScans.php
+
+		-
+			message: '#^Cannot call method diffForHumans\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/RuntimeInspect.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\RuntimeRevision\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Console/Commands/RuntimeInspect.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$compile_inputs_hash\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/RuntimePublish.php
+
+		-
+			message: '#^Cannot call method toDateTimeString\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/RuntimePublish.php
+
+		-
+			message: '#^Cannot call method toDateTimeString\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/RuntimeRollback.php
+
+		-
+			message: '#^Cannot call method toIso8601String\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Console/Commands/SendTelemetryBatch.php
+
+		-
+			message: '#^Empty array passed to foreach\.$#'
+			identifier: foreach.emptyArray
+			count: 1
+			path: app/Console/Commands/SendTelemetryBatch.php
+
+		-
+			message: '#^Offset ''human_message'' on non\-falsy\-string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Console/Commands/SendTelemetryBatch.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\HealthCheckResult\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Console/Commands/SendTelemetryBatch.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type string\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Console/Commands/SendTelemetryBatch.php
+
+		-
+			message: '#^Parameter \$details of class Filament\\GlobalSearch\\GlobalSearchResult constructor expects array\<string, string\>, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/GlobalSearch/YDevGlobalSearchProvider.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\AgencyOnboarding\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/AgencyOnboarding.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$domain_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/AgencyOnboarding.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Filament/Pages/AgencyOnboarding.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:domains\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Pages/AgencyOnboarding.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: app/Filament/Pages/AgencyOnboarding.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Pages/AgencyOnboarding.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\AiSettings\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Filament/Pages/AiSettings.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:billingPortalUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Pages/BillingUpgrade.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:newSubscription\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Filament/Pages/BillingUpgrade.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:subscribed\(\)\.$#'
+			identifier: method.notFound
+			count: 5
+			path: app/Filament/Pages/BillingUpgrade.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/ConsentLogs.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Pages/ConsentLogs.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\EventTester\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/EventTester.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$domains\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/EventTester.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$checked_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$checks_failed\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$checks_passed\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$checks_total\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$checks_warned\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$duration_ms\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$source\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Cannot call method diffForHumans\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Offset ''evidence'' on array\{status\: string, checks\: array, response_times\: array, headers\: array, evidence\: array, duration_ms\: int, checks_total\: int, checks_passed\: int, \.\.\.\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Offset ''headers'' on array\{status\: string, checks\: array, response_times\: array, headers\: array, evidence\: array, duration_ms\: int, checks_total\: int, checks_passed\: int, \.\.\.\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Offset ''response_times'' on array\{status\: string, checks\: array, response_times\: array, headers\: array, evidence\: array, duration_ms\: int, checks_total\: int, checks_passed\: int, \.\.\.\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type string\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Pages/HealthChecker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/Installation.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$fallback_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/PackageLibrary.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$opt_out_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/PackageLibrary.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Filament/Pages/PackageLibrary.php
+
+		-
+			message: '#^Match expression does not handle remaining value\: mixed$#'
+			identifier: match.unhandled
+			count: 1
+			path: app/Filament/Pages/PackageLibrary.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\ScriptScanner\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$scan_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:canRunScan\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Cannot call method diffForHumans\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Parameter \#1 \$array \(list\<non\-falsy\-string\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: array\{id\: int, index\: int\<0, max\>, page_count\: int\<0, max\>, scanned\: bool, scanned_at\: mixed\}, Closure\(App\\Models\\DomainPageSet\)\: array\{id\: int, index\: int\<0, max\>, page_count\: int\<0, max\>, scanned\: bool, scanned_at\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Property App\\Filament\\Pages\\ScriptScanner\:\:\$selectedDomainId \(string\|null\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: app/Filament/Pages/ScriptScanner.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\Settings\:\:\$aiForm\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Filament/Pages/Settings.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\Settings\:\:\$coolifyForm\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/Settings.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\Settings\:\:\$glitchtipForm\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/Settings.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\Settings\:\:\$smtpForm\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/Settings.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 5
+			path: app/Filament/Pages/Settings.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\Pages\\SmtpSettings\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Filament/Pages/SmtpSettings.php
+
+		-
+			message: '#^Variable \$analytics might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Filament/Pages/Tenancy/RegisterGroup.php
+
+		-
+			message: '#^Variable \$essential might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Filament/Pages/Tenancy/RegisterGroup.php
+
+		-
+			message: '#^Variable \$marketing might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Filament/Pages/Tenancy/RegisterGroup.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\ContentBlockers\\Pages\\CreateContentBlocker\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/ContentBlockers/Pages/CreateContentBlocker.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\ContentBlockers\\Pages\\EditContentBlocker\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/ContentBlockers/Pages/EditContentBlocker.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$instructions\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Resources/ContentBlockers/Schemas/ContentBlockerForm.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>instructions" in empty\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Resources/ContentBlockers/Schemas/ContentBlockerForm.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$translations\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Resources/CookieBars/Pages/EditCookieBar.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: app/Filament/Resources/CookieBars/Pages/EditCookieBar.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Resources/CookieBars/Schemas/CookieBarForm.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Resources/CookieBars/Schemas/CookieBarForm.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\CookieGroups\\Pages\\CreateCookieGroup\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/CookieGroups/Pages/CreateCookieGroup.php
+
+		-
+			message: '#^Cannot access property \$is_system on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Filament/Resources/CookieGroups/Pages/EditCookieGroup.php
+
+		-
+			message: '#^Cannot call method services\(\) on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/Resources/CookieGroups/Pages/EditCookieGroup.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\CookieGroups\\Pages\\EditCookieGroup\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/CookieGroups/Pages/EditCookieGroup.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$domain_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/Pages/CreateDomain.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:domains\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/Pages/CreateDomain.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\AttachAction\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\BulkActionGroup\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\CreateAction\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\DeleteAction\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\DeleteBulkAction\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\DetachAction\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\DetachBulkAction\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Actions\\EditAction\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/RelationManagers/ServicesRelationManager.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$origin_auth_legacy_expires_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/Schemas/DomainForm.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$origin_auth_token\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/Schemas/DomainForm.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$origin_auth_token_legacy\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/Schemas/DomainForm.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:canCreateDomain\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Resources/Domains/Schemas/DomainForm.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: app/Filament/Resources/Domains/Schemas/DomainForm.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Resources/GroupInvitations/Pages/CreateGroupInvitation.php
+
+		-
+			message: '#^Parameter \#1 \$invitation of class App\\Mail\\GroupInvitationMail constructor expects App\\Models\\GroupInvitation, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/Resources/GroupInvitations/Pages/CreateGroupInvitation.php
+
+		-
+			message: '#^Call to static method make\(\) on an unknown class Filament\\Forms\\Components\\Section\.$#'
+			identifier: class.notFound
+			count: 2
+			path: app/Filament/Resources/Groups/Schemas/GroupForm.php
+
+		-
+			message: '#^Offset ''placeholder'' on array\{name\: string, field\: string, type\?\: string, rows\?\: int\} on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Filament/Resources/LanguageLines/Schemas/LanguageLineForm.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\Providers\\Pages\\CreateProvider\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/Providers/Pages/CreateProvider.php
+
+		-
+			message: '#^Cannot access property \$is_library on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Filament/Resources/Providers/Pages/EditProvider.php
+
+		-
+			message: '#^Cannot call method services\(\) on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Filament/Resources/Providers/Pages/EditProvider.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\Providers\\Pages\\EditProvider\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/Providers/Pages/EditProvider.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:syncPermissions\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Resources/Roles/Pages/CreateRole.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\ScriptBlockers\\Pages\\CreateScriptBlocker\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/ScriptBlockers/Pages/CreateScriptBlocker.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\ScriptBlockers\\Pages\\EditScriptBlocker\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/ScriptBlockers/Pages/EditScriptBlocker.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\Services\\Pages\\CreateService\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/Services/Pages/CreateService.php
+
+		-
+			message: '#^Static property App\\Filament\\Resources\\Services\\Pages\\EditService\:\:\$resource \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Filament/Resources/Services/Pages/EditService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$instructions\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Resources/Services/Schemas/ServiceForm.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$service\.$#'
+			identifier: property.notFound
+			count: 8
+			path: app/Filament/Resources/Services/Schemas/ServiceForm.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>instructions" in empty\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Resources/Services/Schemas/ServiceForm.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>key" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 8
+			path: app/Filament/Resources/Services/Schemas/ServiceForm.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:getAvailableUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Resources/Services/Tables/ServicesTable.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:updateFromTemplate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Resources/Services/Tables/ServicesTable.php
+
+		-
+			message: '#^Cannot access property \$state on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/Filament/Resources/TrafficAlerts/Pages/ViewTrafficAlert.php
+
+		-
+			message: '#^Cannot call method acknowledge\(\) on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/Resources/TrafficAlerts/Pages/ViewTrafficAlert.php
+
+		-
+			message: '#^Cannot call method addNote\(\) on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/Resources/TrafficAlerts/Pages/ViewTrafficAlert.php
+
+		-
+			message: '#^Cannot call method manualResolve\(\) on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/Resources/TrafficAlerts/Pages/ViewTrafficAlert.php
+
+		-
+			message: '#^Cannot call method reopen\(\) on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/Resources/TrafficAlerts/Pages/ViewTrafficAlert.php
+
+		-
+			message: '#^Cannot call method snooze\(\) on Illuminate\\Database\\Eloquent\\Model\|int\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/Resources/TrafficAlerts/Pages/ViewTrafficAlert.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Resources/TrafficAlerts/TrafficAlertResource.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Widgets/ConsentCategoriesChart.php
+
+		-
+			message: '#^Offset ''analytics''\|''essential''\|''marketing''\|''other''\|''preferences'' on array\{essential\: ''\#6366f1'', marketing\: ''\#f43f5e'', analytics\: ''\#0ea5e9'', preferences\: ''\#8b5cf6'', other\: ''\#94a3b8''\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Filament/Widgets/ConsentCategoriesChart.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ConsentLog\:\:\$aggregate\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Widgets/ConsentRateChart.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ConsentLog\:\:\$date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Widgets/ConsentRateChart.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:domains\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Widgets/ConsentRateChart.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Widgets/ConsentStatisticsChart.php
+
+		-
+			message: '#^Invalid array key type float\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 6
+			path: app/Filament/Widgets/TrafficStatsWidget.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$domain_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Widgets/UsageMeteringWidget.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$scan_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Widgets/UsageMeteringWidget.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$scans_this_month\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Widgets/UsageMeteringWidget.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:domains\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Widgets/UsageMeteringWidget.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:subscribed\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Widgets/UsageMeteringWidget.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:subscription\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/Widgets/UsageMeteringWidget.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$css_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$html_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_preselected\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_required\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$js_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$on_exist\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$preview_image_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$service\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$services\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$theme_settings\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$translations\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$ui_config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Support\\HigherOrderCollectionProxy\<string, Illuminate\\Database\\Eloquent\\Model, Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\>\:\:\$services\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Anonymous function has an unused use \$domain\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''advanced_consent…'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''auto_detect'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''auto_detect'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''default_language'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''default_language'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''enabled'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''mapping'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''regional_defaults'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Offset ''show_switcher'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 3
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Parameter \#3 \$callback of static method Illuminate\\Cache\\Repository\:\:remember\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>theme_settings" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>translations" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>ui_config" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/ConsentConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$domains\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ConsentHubController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Http/Controllers/Api/ManifestProjectionController.php
+
+		-
+			message: '#^Offset ''auto_detect'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ManifestProjectionController.php
+
+		-
+			message: '#^Offset ''default_language'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: app/Http/Controllers/Api/ManifestProjectionController.php
+
+		-
+			message: '#^Empty array passed to foreach\.$#'
+			identifier: foreach.emptyArray
+			count: 1
+			path: app/Http/Controllers/Api/ObservabilityController.php
+
+		-
+			message: '#^Offset ''config_version'' on array\{domain_id\: mixed, bucket\: string, route_pattern\: mixed, request_count\: 0, status_2xx\: 0, status_3xx\: 0, status_4xx\: 0, status_5xx\: 0, \.\.\.\} on left side of \?\? always exists and is always null\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ObservabilityController.php
+
+		-
+			message: '#^Offset ''error_codes'' on array\{domain_id\: mixed, bucket\: string, route_pattern\: mixed, request_count\: 0, status_2xx\: 0, status_3xx\: 0, status_4xx\: 0, status_5xx\: 0, \.\.\.\} in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: app/Http/Controllers/Api/ObservabilityController.php
+
+		-
+			message: '#^Offset ''proxy_version'' on array\{domain_id\: mixed, bucket\: string, route_pattern\: mixed, request_count\: 0, status_2xx\: 0, status_3xx\: 0, status_4xx\: 0, status_5xx\: 0, \.\.\.\} on left side of \?\? always exists and is always null\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ObservabilityController.php
+
+		-
+			message: '#^Offset mixed on array\{\} on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ObservabilityController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/ProxyConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$on_exist\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ProxyConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$service\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/ProxyConfigController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$services\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ProxyConfigController.php
+
+		-
+			message: '#^Cannot call method toIso8601String\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/ProxyConfigController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 2
+			path: app/Http/Controllers/Api/ProxyConfigController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Domain\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$services\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$theme_settings\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$translations\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$ui_config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Support\\HigherOrderCollectionProxy\<string, Illuminate\\Database\\Eloquent\\Model, Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\>\:\:\$services\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''advanced_consent…'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''auto_detect'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''auto_detect'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''default_language'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''default_language'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''enabled'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''mapping'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''regional_defaults'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Offset ''show_switcher'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>theme_settings" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>translations" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>ui_config" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/ScriptDeliveryController.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: app/Http/Controllers/InvitationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$domain_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Middleware/CheckDomainLimit.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:domains\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Middleware/CheckDomainLimit.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:onTrial\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Middleware/CheckDomainLimit.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:subscribedToPrice\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Middleware/CheckDomainLimit.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Middleware/ContentBlockerMiddleware.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Middleware/ScriptBlockerMiddleware.php
+
+		-
+			message: '#^Call to function method_exists\(\) with App\\Models\\Group and ''users'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Jobs/GenerateDigestForGroup.php
+
+		-
+			message: '#^Comparison operation "\>" between 0 and 0 is always false\.$#'
+			identifier: greater.alwaysFalse
+			count: 1
+			path: app/Jobs/GenerateDigestForGroup.php
+
+		-
+			message: '#^Offset ''total_requests'' on string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Jobs/GenerateDigestForGroup.php
+
+		-
+			message: '#^Parameter \#1 \$evidence of static method App\\Services\\DigestSummaryEngine\:\:enrichRecommendationsFromHealthCheck\(\) expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Jobs/GenerateDigestForGroup.php
+
+		-
+			message: '#^Parameter \#2 \$previous of method App\\Jobs\\GenerateDigestForGroup\:\:computeDeltas\(\) expects array, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Jobs/GenerateDigestForGroup.php
+
+		-
+			message: '#^Parameter \#3 \$trends of method App\\Jobs\\GenerateDigestForGroup\:\:buildAiPrompt\(\) expects array\|null, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Jobs/GenerateDigestForGroup.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: app/Jobs/GenerateDigestForGroup.php
+
+		-
+			message: '#^Offset ''changed'' on array\{changed\: bool, message\?\: string, domains\?\: array\<string\>\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: app/Jobs/SyncCoolifyDomains.php
+
+		-
+			message: '#^Method App\\Models\\AiSetting\:\:instance\(\) should return static\(App\\Models\\AiSetting\) but returns App\\Models\\AiSetting\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/AiSetting.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: app/Models/CoolifySetting.php
+
+		-
+			message: '#^Method App\\Models\\CoolifySetting\:\:instance\(\) should return static\(App\\Models\\CoolifySetting\) but returns App\\Models\\CoolifySetting\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/CoolifySetting.php
+
+		-
+			message: '#^Method App\\Models\\Domain\:\:nextPageSet\(\) should return App\\Models\\DomainPageSet\|null but returns Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Domain.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 3
+			path: app/Models/GlitchTipSetting.php
+
+		-
+			message: '#^Method App\\Models\\GlitchTipSetting\:\:instance\(\) should return static\(App\\Models\\GlitchTipSetting\) but returns App\\Models\\GlitchTipSetting\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/GlitchTipSetting.php
+
+		-
+			message: '#^Method App\\Models\\SmtpSetting\:\:instance\(\) should return static\(App\\Models\\SmtpSetting\) but returns App\\Models\\SmtpSetting\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/SmtpSetting.php
+
+		-
+			message: '#^Cannot call method isFuture\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Models/TrafficAlertState.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Relations\\Pivot\:\:\$role\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/DailyTrafficDigestNotification.php
+
+		-
+			message: '#^Argument of an invalid type string supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Notifications/DailyTrafficDigestNotification.php
+
+		-
+			message: '#^Cannot call method toDateString\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Notifications/DailyTrafficDigestNotification.php
+
+		-
+			message: '#^Offset ''vs_prev_day'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Notifications/DailyTrafficDigestNotification.php
+
+		-
+			message: '#^Offset ''vs_prev_day'' on string\|null in empty\(\) does not exist\.$#'
+			identifier: empty.offset
+			count: 1
+			path: app/Notifications/DailyTrafficDigestNotification.php
+
+		-
+			message: '#^Variable \$config might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Observers/DomainObserver.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\CookieBar\:\:\$group_id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Policies/CookieBarPolicy.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Policies/CookieBarPolicy.php
+
+		-
+			message: '#^Parameter \#1 \$group of method App\\Models\\User\:\:getTenantRole\(\) expects App\\Models\\Group, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Policies/CookieBarPolicy.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\CookieGroup\:\:\$group_id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Policies/CookieGroupPolicy.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Policies/CookieGroupPolicy.php
+
+		-
+			message: '#^Parameter \#1 \$group of method App\\Models\\User\:\:getTenantRole\(\) expects App\\Models\\Group, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Policies/CookieGroupPolicy.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Policies/DomainPolicy.php
+
+		-
+			message: '#^Parameter \#1 \$group of method App\\Models\\User\:\:getTenantRole\(\) expects App\\Models\\Group, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Policies/DomainPolicy.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Policies/GroupInvitationPolicy.php
+
+		-
+			message: '#^Parameter \#2 \$group of method App\\Policies\\GroupInvitationPolicy\:\:isAdmin\(\) expects App\\Models\\Group, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 5
+			path: app/Policies/GroupInvitationPolicy.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Service\:\:\$group_id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Policies/ServicePolicy.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Policies/ServicePolicy.php
+
+		-
+			message: '#^Parameter \#1 \$group of method App\\Models\\User\:\:getTenantRole\(\) expects App\\Models\\Group, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Policies/ServicePolicy.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$css_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$html_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_preselected\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_required\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$js_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$preview_image_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$service\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$services\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Cannot call method toIso8601String\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Offset ''languages'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 3
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<int,array\<string, mixed\>\>\:\:filter\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between '''' and '''' will always evaluate to false\.$#'
+			identifier: notIdentical.alwaysFalse
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Variable \$overlays in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: app/Runtime/Compiler/DomainCompiler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$overlay_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Runtime/Consumer/RevisionResolver.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:getOverlay\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Runtime/Consumer/RevisionResolver.php
+
+		-
+			message: '#^Cannot call method toIso8601String\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Runtime/Consumer/RevisionResolver.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between non\-empty\-string and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Runtime/Schema/PathNormalizer.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-list\<string\> on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/CoolifyApiService.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''domains'' and \*NEVER\* will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: app/Services/CoolifyService.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 4
+			path: app/Services/CoolifyService.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 2
+			path: app/Services/CoolifyService.php
+
+		-
+			message: '#^Offset ''changed'' on array\{changed\: bool, message\?\: string, domains\?\: array\<string\>\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: app/Services/CoolifyService.php
+
+		-
+			message: '#^Result of \|\| is always true\.$#'
+			identifier: booleanOr.alwaysTrue
+			count: 2
+			path: app/Services/CoolifyService.php
+
+		-
+			message: '#^Ternary operator condition is always false\.$#'
+			identifier: ternary.alwaysFalse
+			count: 2
+			path: app/Services/CoolifyService.php
+
+		-
+			message: '#^Variable \$aRecords in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: app/Services/CoolifyService.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: app/Services/DigestSummaryEngine.php
+
+		-
+			message: '#^Cannot call method diffInMinutes\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Comparison operation "\>" between 10 and 0 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 1
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 3
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Offset ''cmp_detection''\|''cms_detection''\|''config_api''\|''config_endpoint''\|''consent_endpoint''\|''cookie_compliance''\|''dns_resolution''\|''domain_reachable''\|''headers_correct''\|''iframe_inventory''\|''no_csp_block''\|''no_duplicate…''\|''origin_reachable''\|''page_load_time''\|''proxy_header''\|''response_status''\|''script_injected''\|''security_headers''\|''ssl_validity''\|''third_party_scripts'' on array\{\}\|string on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Offset 0 on array\{list\<string\>\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-list\<string\> on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Offset 1 on array\{list\<string\>, list\<non\-empty\-string\>\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Parameter \#1 \$array \(list\<array\{domain\: non\-falsy\-string, category\: string, count\: int\<1, max\>\}\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: app/Services/HealthCheckerService.php
+
+		-
+			message: '#^Cannot call method diffForHumans\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ObservabilityService.php
+
+		-
+			message: '#^Cannot call method toIso8601String\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ObservabilityService.php
+
+		-
+			message: '#^Empty array passed to foreach\.$#'
+			identifier: foreach.emptyArray
+			count: 1
+			path: app/Services/ObservabilityService.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: app/Services/ObservabilityService.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 4
+			path: app/Services/OpenRouterService.php
+
+		-
+			message: '#^Call to an undefined method Spatie\\Browsershot\\Browsershot\:\:addBrowserArgs\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/ScriptScannerService.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: app/Services/ScriptScannerService.php
+
+		-
+			message: '#^Offset ''type'' on array\{key\: mixed, name\: mixed, type\: ''content''\|''script''\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/ScriptScannerService.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\{\}\|string\) to function array_values is empty, call has no effect\.$#'
+			identifier: arrayValues.empty
+			count: 1
+			path: app/Services/ScriptScannerService.php
+
+		-
+			message: '#^Parameter \#1 \$array \(non\-empty\-list\<non\-empty\-list\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: app/Services/ScriptScannerService.php
+
+		-
+			message: '#^Cannot call method toDateString\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/TelemetryService.php
+
+		-
+			message: '#^Cannot call method toIso8601String\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/TelemetryService.php
+
+		-
+			message: '#^Empty array passed to foreach\.$#'
+			identifier: foreach.emptyArray
+			count: 1
+			path: app/Services/TelemetryService.php
+
+		-
+			message: '#^Offset ''human_message'' on string\|null on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Services/TelemetryService.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type string\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/TelemetryService.php

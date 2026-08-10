@@ -1,0 +1,28 @@
+{
+    "schema_version": "1.0.0",
+    "domain": "example.com",
+    "site_id": "abc-123-def",
+    "revision": 42,
+    "issued_at": "2026-03-28T00:00:00Z",
+    "artifacts": {
+        "base": {
+            "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size": 4096,
+            "algorithm": "sha256"
+        },
+        "route_index": {
+            "hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+            "size": 512,
+            "algorithm": "sha256"
+        },
+        "overlays": [
+            {
+                "id": "blog_overlay",
+                "hash": "f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2",
+                "size": 1024,
+                "algorithm": "sha256"
+            }
+        ]
+    },
+    "signature": null
+}

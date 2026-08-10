@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 06 — Handle and ID/data-handle Matching</title>
+  <!-- Script matched by handle substring "gtag/js" in src — BLOCKED by google-analytics -->
+  <script src="https://cdn.example.com/gtag/js?v=2" type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="google-analytics" data-ycookies-service="google-analytics"></script>
+  <!-- Script matched by id "facebook-pixel-init" — NOT blocked (Laravel checks if id CONTAINS handle, -->
+  <!-- but handle "connect.facebook.net" is not in "facebook-pixel-init". handle "fbevents.js" is not either) -->
+  <!-- So this is NOT blocked. The id must contain a handle value, not just the service name -->
+  <script id="facebook-pixel-init" src="https://cdn.example.com/pixel.js"></script>
+  <!-- Script matched by data-handle "hotjar-tracking" — NOT blocked -->
+  <!-- Laravel checks if data-handle CONTAINS handle value. "hotjar.com" is not in "hotjar-tracking" -->
+  <!-- and "static.hotjar.com" is not in "hotjar-tracking" either -->
+  <script data-handle="hotjar-tracking" src="https://cdn.example.com/hj.js"></script>
+  <!-- Script with no matching handle, id, or data-handle — should NOT be blocked -->
+  <script id="app-init" src="https://cdn.example.com/app.js"></script>
+</head>
+<body>
+  <h1>Handle/ID Matching</h1>
+</body>
+</html>

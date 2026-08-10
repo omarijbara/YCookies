@@ -1,0 +1,35 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "test:e2e": "playwright test",
+        "test:e2e:ui": "playwright test --ui",
+        "test:e2e:headed": "playwright test --headed",
+        "test:unit": "vitest run"
+    },
+    "devDependencies": {
+        "@iabtechlabtcf/cmpapi": "^1.5.21",
+        "@iabtechlabtcf/core": "^1.5.21",
+        "@playwright/test": "^1.58.2",
+        "@tailwindcss/vite": "^4.2.1",
+        "@testing-library/dom": "^10.4.1",
+        "axios": "^1.11.0",
+        "concurrently": "^9.0.1",
+        "dotenv": "^16.6.1",
+        "jsdom": "^29.0.1",
+        "laravel-vite-plugin": "^2.0.0",
+        "tailwindcss": "^4.2.1",
+        "vite": "^7.0.7",
+        "vite-plugin-pwa": "^1.2.0",
+        "vitest": "^4.1.2"
+    },
+    "dependencies": {
+        "puppeteer": "^24.38.0"
+    },
+    "overrides": {
+        "serialize-javascript": "^7.0.5"
+    }
+}

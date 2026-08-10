@@ -1,0 +1,480 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# YCookies ADMIN Stack — Control Plane
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# This is the ADMIN half of the split architecture. It contains:
+#   - Laravel (Filament admin + API)
+#   - Queue Worker
+#   - MySQL + Redis (shared with proxy via ycookies-shared network)
+#   - GlitchTip (error tracking)
+#   - Loki + Promtail (log aggregation)
+#
+# Deploying this stack does NOT restart the proxy. duftz.de stays live.
+#
+# For single-stack dev, use docker-compose.yml instead.
+# ══════════════════════════════════════════════════════════════════════════════
+
+services:
+  # ────────────────────────────────────────────────────
+  # Laravel — control-plane (Filament admin + API)
+  # Nginx + PHP-FPM via Dockerfile.laravel
+  # ────────────────────────────────────────────────────
+  laravel:
+    # Shared image for queue-worker/health-worker/observability-worker below.
+    # Building the same Dockerfile target 4x concurrently was starving this host's
+    # memory during deploys — do not add a build: block back to those services.
+    image: ycookies3-laravel-shared:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.laravel
+      target: production
+    restart: unless-stopped
+    stop_signal: SIGTERM
+    stop_grace_period: 30s
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://${ADMIN_HOST:-cookies.ypsilon.dev}
+      - DB_CONNECTION=${DB_CONNECTION:-mysql}
+      - DB_HOST=${DB_HOST:-mysql}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DATABASE=${DB_DATABASE:-ycookies}
+      - DB_USERNAME=${DB_USERNAME:-ycookies}
+      - DB_PASSWORD=${SERVICE_PASSWORD_DB}
+      - REDIS_HOST=app-redis
+      - REDIS_PORT=6379
+      - PROXY_SHARED_SECRET=${SERVICE_BASE64_64_PROXY}
+      - APP_KEY=${APP_KEY:?Laravel APP_KEY is required}
+      - QUEUE_CONNECTION=database
+      - COOLIFY_INSTANCE_URL=${COOLIFY_INSTANCE_URL:-https://coolify.revyome.com}
+      - COOLIFY_API_TOKEN=${COOLIFY_API_TOKEN:-}
+      - COOLIFY_APP_UUID=${COOLIFY_APP_UUID:-}
+      - SENTRY_LARAVEL_DSN=${SENTRY_LARAVEL_DSN:-}
+      - GLITCHTIP_API_TOKEN=${GLITCHTIP_API_TOKEN:-}
+      - GLITCHTIP_ORG_SLUG=${GLITCHTIP_ORG_SLUG:-default}
+      - GLITCHTIP_PUBLIC_URL=https://${GLITCHTIP_HOST:-sentry.ypsilon.dev}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      app-redis:
+        condition: service_healthy
+    labels:
+      # Coolify auto-generates Traefik routing rules (Host rules, TLS, cert resolver).
+      # However, since the container exposes multiple ports (80, 9000), we MUST explicitly
+      # define the loadbalancer port so Traefik doesn't randomly route to PHP-FPM (9000).
+      - "traefik.enable=true"
+      - "traefik.docker.network=coolify"
+      - "traefik.http.services.laravel.loadbalancer.server.port=80"
+    ports:
+      - "80"
+    networks:
+      - coolify
+      - default
+      - ycookies-shared
+    volumes:
+      - laravel-storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost/up || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+  # ────────────────────────────────────────────────────
+  # Queue Worker — processes async jobs (domain sync, etc.)
+  # Same image as Laravel but runs artisan queue:work
+  # ────────────────────────────────────────────────────
+  queue-worker:
+    # Reuses laravel's image — do not add a build: block here.
+    image: ycookies3-laravel-shared:latest
+    # A1 — Stop/restart storm safety: Prevent infinite crash loop starvation
+    restart: on-failure:5
+    stop_signal: SIGTERM
+    stop_grace_period: 30s
+    command:
+      [
+        "php",
+        "artisan",
+        "queue:work",
+        "--sleep=3",
+        "--tries=3",
+        "--timeout=120",
+      ]
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://${ADMIN_HOST:-cookies.ypsilon.dev}
+      - DB_CONNECTION=${DB_CONNECTION:-mysql}
+      - DB_HOST=${DB_HOST:-mysql}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DATABASE=${DB_DATABASE:-ycookies}
+      - DB_USERNAME=${DB_USERNAME:-ycookies}
+      - DB_PASSWORD=${SERVICE_PASSWORD_DB}
+      - REDIS_HOST=app-redis
+      - REDIS_PORT=6379
+      - PROXY_SHARED_SECRET=${SERVICE_BASE64_64_PROXY}
+      - APP_KEY=${APP_KEY:?Laravel APP_KEY is required}
+      - QUEUE_CONNECTION=database
+      - COOLIFY_INSTANCE_URL=${COOLIFY_INSTANCE_URL:-https://coolify.revyome.com}
+      - COOLIFY_API_TOKEN=${COOLIFY_API_TOKEN:-}
+      - COOLIFY_APP_UUID=${COOLIFY_APP_UUID:-}
+      - SENTRY_LARAVEL_DSN=${SENTRY_LARAVEL_DSN:-}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      app-redis:
+        condition: service_healthy
+      laravel:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - default
+    volumes:
+      - laravel-storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'queue:work' || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # ────────────────────────────────────────────────────
+  # Health Worker — isolates domain probes from the default queue
+  # ────────────────────────────────────────────────────
+  health-worker:
+    # Reuses laravel's image — do not add a build: block here.
+    image: ycookies3-laravel-shared:latest
+    restart: on-failure:5
+    stop_signal: SIGTERM
+    stop_grace_period: 30s
+    command:
+      [
+        "php",
+        "artisan",
+        "queue:work",
+        "--queue=health",
+        "--sleep=3",
+        "--tries=2",
+        "--timeout=120",
+      ]
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://${ADMIN_HOST:-cookies.ypsilon.dev}
+      - DB_CONNECTION=${DB_CONNECTION:-mysql}
+      - DB_HOST=${DB_HOST:-mysql}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DATABASE=${DB_DATABASE:-ycookies}
+      - DB_USERNAME=${DB_USERNAME:-ycookies}
+      - DB_PASSWORD=${SERVICE_PASSWORD_DB}
+      - REDIS_HOST=app-redis
+      - REDIS_PORT=6379
+      - PROXY_SHARED_SECRET=${SERVICE_BASE64_64_PROXY}
+      - APP_KEY=${APP_KEY:?Laravel APP_KEY is required}
+      - QUEUE_CONNECTION=database
+      - COOLIFY_INSTANCE_URL=${COOLIFY_INSTANCE_URL:-https://coolify.revyome.com}
+      - COOLIFY_API_TOKEN=${COOLIFY_API_TOKEN:-}
+      - COOLIFY_APP_UUID=${COOLIFY_APP_UUID:-}
+      - SENTRY_LARAVEL_DSN=${SENTRY_LARAVEL_DSN:-}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      app-redis:
+        condition: service_healthy
+      laravel:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - default
+    volumes:
+      - laravel-storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'queue:work' || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # ────────────────────────────────────────────────────
+  # Observability Worker — keeps traffic analysis off the default queue
+  # ────────────────────────────────────────────────────
+  observability-worker:
+    # Reuses laravel's image — do not add a build: block here.
+    image: ycookies3-laravel-shared:latest
+    restart: on-failure:5
+    stop_signal: SIGTERM
+    stop_grace_period: 30s
+    command:
+      [
+        "php",
+        "artisan",
+        "queue:work",
+        "--queue=observability",
+        "--sleep=3",
+        "--tries=2",
+        "--timeout=120",
+      ]
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://${ADMIN_HOST:-cookies.ypsilon.dev}
+      - DB_CONNECTION=${DB_CONNECTION:-mysql}
+      - DB_HOST=${DB_HOST:-mysql}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DATABASE=${DB_DATABASE:-ycookies}
+      - DB_USERNAME=${DB_USERNAME:-ycookies}
+      - DB_PASSWORD=${SERVICE_PASSWORD_DB}
+      - REDIS_HOST=app-redis
+      - REDIS_PORT=6379
+      - PROXY_SHARED_SECRET=${SERVICE_BASE64_64_PROXY}
+      - APP_KEY=${APP_KEY:?Laravel APP_KEY is required}
+      - QUEUE_CONNECTION=database
+      - COOLIFY_INSTANCE_URL=${COOLIFY_INSTANCE_URL:-https://coolify.revyome.com}
+      - COOLIFY_API_TOKEN=${COOLIFY_API_TOKEN:-}
+      - COOLIFY_APP_UUID=${COOLIFY_APP_UUID:-}
+      - SENTRY_LARAVEL_DSN=${SENTRY_LARAVEL_DSN:-}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      app-redis:
+        condition: service_healthy
+      laravel:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - default
+    volumes:
+      - laravel-storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'queue:work' || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # ────────────────────────────────────────────────────
+  # Scanner Worker — C1 / C2 Dedicated scanner queue
+  # Heavily bounded by compose limits to prevent proxy OOMs
+  # ────────────────────────────────────────────────────
+  scanner-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.laravel
+      target: scanner
+    restart: unless-stopped
+    stop_signal: SIGTERM
+    stop_grace_period: 30s
+    command:
+      [
+        "php",
+        "artisan",
+        "queue:work",
+        "--queue=scanner",
+        "--sleep=5",
+        "--tries=1",
+        "--timeout=600",
+        "--memory=512",
+      ]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1536M
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://${ADMIN_HOST:-cookies.ypsilon.dev}
+      - DB_CONNECTION=${DB_CONNECTION:-mysql}
+      - DB_HOST=${DB_HOST:-mysql}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_DATABASE=${DB_DATABASE:-ycookies}
+      - DB_USERNAME=${DB_USERNAME:-ycookies}
+      - DB_PASSWORD=${SERVICE_PASSWORD_DB}
+      - REDIS_HOST=app-redis
+      - REDIS_PORT=6379
+      - PROXY_SHARED_SECRET=${SERVICE_BASE64_64_PROXY}
+      - APP_KEY=${APP_KEY:?Laravel APP_KEY is required}
+      - CHROME_PATH=/usr/bin/chromium-browser
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+      - QUEUE_CONNECTION=database
+      - COOLIFY_INSTANCE_URL=${COOLIFY_INSTANCE_URL:-https://coolify.revyome.com}
+      - COOLIFY_API_TOKEN=${COOLIFY_API_TOKEN:-}
+      - COOLIFY_APP_UUID=${COOLIFY_APP_UUID:-}
+      - SENTRY_LARAVEL_DSN=${SENTRY_LARAVEL_DSN:-}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      app-redis:
+        condition: service_healthy
+      laravel:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - default
+    volumes:
+      - laravel-storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'queue:work' || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # ────────────────────────────────────────────────────
+  # Redis — pub/sub + cache + sessions + queue
+  # Named 'app-redis' to avoid DNS collision with Coolify's Redis
+  # Exposed on ycookies-shared network for proxy access
+  # ────────────────────────────────────────────────────
+  app-redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", ""]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - default
+      - ycookies-shared
+
+  # ────────────────────────────────────────────────────
+  # MySQL — persistent data store
+  # ────────────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    # No replica reads these binlogs; keep a short window and compress them
+    # (was accumulating unbounded — 7.6GB of the 11GB volume was here).
+    command:
+      - --binlog-expire-logs-seconds=604800
+      - --binlog-transaction-compression=ON
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE:-ycookies}
+      - MYSQL_USER=${DB_USERNAME:-ycookies}
+      - MYSQL_PASSWORD=${SERVICE_PASSWORD_DB}
+      - MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_DB}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - coolify
+      - default
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${SERVICE_PASSWORD_DB}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ────────────────────────────────────────────────────
+  # GlitchTip — self-hosted error tracking (Sentry-compatible)
+  # ────────────────────────────────────────────────────
+  glitchtip-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=glitchtip
+      - POSTGRES_USER=glitchtip
+      - POSTGRES_PASSWORD=${SERVICE_PASSWORD_GLITCHTIPDB}
+    volumes:
+      - glitchtip-db-data:/var/lib/postgresql/data
+    labels:
+      - "traefik.enable=false"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U glitchtip"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  glitchtip-web:
+    image: glitchtip/glitchtip:latest
+    restart: unless-stopped
+    # A2 — GlitchTip migrations smoke: Ensure DB is migrated before Gunicorn starts
+    command: bash -c "./manage.py migrate && ./bin/run-web.sh"
+    environment:
+      - DATABASE_URL=postgres://glitchtip:${SERVICE_PASSWORD_GLITCHTIPDB}@glitchtip-db:5432/glitchtip
+      - REDIS_URL=redis://app-redis:6379/1
+      - SECRET_KEY=${SERVICE_PASSWORD_GLITCHTIP}
+      - PORT=8000
+      - GLITCHTIP_DOMAIN=https://${GLITCHTIP_HOST:-sentry.ypsilon.dev}
+      - DEFAULT_FROM_EMAIL=${GLITCHTIP_FROM_EMAIL:-noreply@ycookies.dev}
+      - GLITCHTIP_MAX_EVENT_LIFE_DAYS=${GLITCHTIP_MAX_EVENT_LIFE_DAYS:-90}
+      - ENABLE_USER_REGISTRATION=${GLITCHTIP_REGISTRATION:-true}
+    depends_on:
+      glitchtip-db:
+        condition: service_healthy
+      app-redis:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - coolify
+      - default
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'python3 -c "import urllib.request; urllib.request.urlopen(''http://127.0.0.1:8000/_health/'')" || exit 1',
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  glitchtip-worker:
+    image: glitchtip/glitchtip:latest
+    restart: unless-stopped
+    command: bin/run-celery-with-beat.sh
+    environment:
+      - DATABASE_URL=postgres://glitchtip:${SERVICE_PASSWORD_GLITCHTIPDB}@glitchtip-db:5432/glitchtip
+      - REDIS_URL=redis://app-redis:6379/1
+      - SECRET_KEY=${SERVICE_PASSWORD_GLITCHTIP}
+      - GLITCHTIP_DOMAIN=https://${GLITCHTIP_HOST:-glitchtip.localhost}
+      - GLITCHTIP_MAX_EVENT_LIFE_DAYS=${GLITCHTIP_MAX_EVENT_LIFE_DAYS:-90}
+    depends_on:
+      glitchtip-db:
+        condition: service_healthy
+      app-redis:
+        condition: service_healthy
+      glitchtip-web:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=false"
+    healthcheck:
+      test: ["CMD-SHELL", "python3 ./manage.py check || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  mysql-data:
+  laravel-storage:
+  glitchtip-db-data:
+
+networks:
+  coolify:
+    external: true
+  ycookies-shared:
+    name: ycookies-shared
+    driver: bridge

@@ -1,0 +1,21 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* Custom card styling for premium feel */
+.fi-wi-stats-overview-stat {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fi-wi-stats-overview-stat:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Danger stat card glow effect */
+.fi-wi-stats-overview-stat--danger {
+    border-color: rgba(244, 63, 94, 0.3);
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.1);
+}

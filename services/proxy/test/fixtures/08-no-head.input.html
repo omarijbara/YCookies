@@ -1,0 +1,11 @@
+<html>
+<title>Fixture 08 — No Head Tag</title>
+<body>
+  <h1>Page with no &lt;head&gt; at all</h1>
+  <!-- Script in body — should be BLOCKED -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=UA-12345"></script>
+  <!-- iframe in body — should be BLOCKED -->
+  <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="560" height="315"></iframe>
+  <p>Some content</p>
+</body>
+</html>

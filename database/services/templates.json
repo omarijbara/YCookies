@@ -1,0 +1,120 @@
+[
+    {
+        "key": "ga4",
+        "name": "Google Analytics 4",
+        "description": "Google Analytics 4 is a web analytics service offered by Google that tracks and reports website traffic.",
+        "group": "statistics",
+        "hosts": [
+            "google-analytics.com",
+            "googletagmanager.com",
+            "analytics.google.com"
+        ],
+        "cookies": [
+            "_ga",
+            "_gid",
+            "_gat"
+        ],
+        "payload": "<script async src='https://www.googletagmanager.com/gtag/js?id={{ga_id}}'></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n  gtag('config', '{{ga_id}}');\n</script>",
+        "fields": [
+            {
+                "name": "ga_id",
+                "label": "Google Analytics ID (G-XXXXXXX)"
+            }
+        ]
+    },
+    {
+        "key": "fb_pixel",
+        "name": "Facebook Pixel",
+        "description": "Meta Pixel is a piece of code for your website that lets you measure, optimize and build audiences for your ad campaigns.",
+        "group": "marketing",
+        "hosts": [
+            "connect.facebook.net",
+            "facebook.com/tr",
+            "facebook.net"
+        ],
+        "cookies": [
+            "_fbp",
+            "_fbc"
+        ],
+        "payload": "<script>\n  !function(f,b,e,v,n,t,s)\n  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n  n.callMethod.apply(n,arguments):n.queue.push(arguments)};\n  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\n  n.queue=[];t=b.createElement(e);t.async=!0;\n  t.src=v;s=b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t,s)}(window, document,'script',\n  'https://connect.facebook.net/en_US/fbevents.js');\n  fbq('init', '{{pixel_id}}');\n  fbq('track', 'PageView');\n</script>\n<noscript><img height='1' width='1' style='display:none'\n  src='https://www.facebook.com/tr?id={{pixel_id}}&ev=PageView&noscript=1'\n/></noscript>",
+        "fields": [
+            {
+                "name": "pixel_id",
+                "label": "Facebook Pixel ID"
+            }
+        ]
+    },
+    {
+        "key": "hotjar",
+        "name": "Hotjar",
+        "description": "Hotjar is a product experience insights tool.",
+        "group": "statistics",
+        "hosts": [
+            "hotjar.com",
+            "script.hotjar.com",
+            "static.hotjar.com"
+        ],
+        "cookies": [
+            "_hjSessionUser_",
+            "_hjSession_",
+            "_hjIncludedInSessionSample"
+        ],
+        "payload": "<script>\n    (function(h,o,t,j,a,r){\n        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};\n        h._hjSettings={hjid:{{hj_id}},hjsv:6};\n        a=o.getElementsByTagName('head')[0];\n        r=o.createElement('script');r.async=1;\n        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;\n        a.appendChild(r);\n    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');\n</script>",
+        "fields": [
+            {
+                "name": "hj_id",
+                "label": "Hotjar ID"
+            }
+        ]
+    },
+    {
+        "key": "tiktok_pixel",
+        "name": "TikTok Pixel",
+        "description": "Measurement tool for TikTok ad campaign performance.",
+        "group": "marketing",
+        "hosts": [
+            "analytics.tiktok.com",
+            "tiktok.com"
+        ],
+        "cookies": [
+            "_ttp",
+            "_tt_enable_cookie"
+        ],
+        "payload": "<script>\n!function (w, d, t) {\n  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=[\"page\",\"track\",\"identify\",\"instances\",\"debug\",\"on\",\"off\",\"once\",\"ready\",\"alias\",\"group\",\"enableCookie\",\"disableCookie\"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i=\"https://analytics.tiktok.com/i18n/pixel/events.js\";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement(\"script\");o.type=\"text/javascript\",o.async=!0,o.src=i+\"?sdkid=\"+e+\"&lib=\"+t;var a=document.getElementsByTagName(\"script\")[0];a.parentNode.insertBefore(o,a)};\n  ttq.load('{{tiktok_id}}');\n  ttq.page();\n}(window, document, 'ttq');\n</script>",
+        "fields": [
+            {
+                "name": "tiktok_id",
+                "label": "TikTok Pixel ID"
+            }
+        ]
+    },
+    {
+        "key": "youtube",
+        "name": "YouTube Video",
+        "description": "YouTube is a video sharing service where users can watch, like, share, comment and upload their own videos.",
+        "group": "marketing",
+        "hosts": [
+            "youtube.com",
+            "youtube-nocookie.com",
+            "ytimg.com"
+        ],
+        "cookies": [
+            "YSC",
+            "PREF",
+            "VISITOR_INFO1_LIVE"
+        ]
+    },
+    {
+        "key": "vimeo",
+        "name": "Vimeo Video",
+        "description": "Vimeo is an ad-free video platform.",
+        "group": "marketing",
+        "hosts": [
+            "vimeo.com",
+            "player.vimeo.com"
+        ],
+        "cookies": [
+            "vuid"
+        ]
+    }
+]

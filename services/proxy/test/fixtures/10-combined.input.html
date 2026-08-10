@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 10 — Combined Scripts and Content</title>
+  <!-- GA — should be BLOCKED -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=UA-12345"></script>
+  <!-- GA inline init — should NOT be blocked (attributes don't contain phrase) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-12345');
+  </script>
+  <!-- App script — should NOT be blocked -->
+  <script src="/assets/js/app.js" defer></script>
+  <!-- YCookies manager — must NEVER be blocked -->
+  <script src="https://app.ycookies.com/api/script/site123.js" id="ycookies-manager" defer></script>
+  <!-- FB inline with phrase in attribute — should NOT be blocked (no matching phrase in tag attrs) -->
+  <script data-name="pixel-init">
+    fbq('init', '12345');
+    fbq('track', 'PageView');
+  </script>
+</head>
+<body>
+  <h1>Full Page Example</h1>
+  <!-- YouTube — should be BLOCKED -->
+  <iframe src="https://www.youtube.com/embed/abc123" width="560" height="315" allow="autoplay"></iframe>
+  <p>Some text between embeds</p>
+  <!-- Self-hosted — should NOT be blocked -->
+  <iframe src="/local-widget.html" width="300" height="200"></iframe>
+  <!-- Vimeo — should be BLOCKED -->
+  <iframe src="https://player.vimeo.com/video/99999" width="640" height="360"></iframe>
+</body>
+</html>

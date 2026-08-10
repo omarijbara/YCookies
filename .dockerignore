@@ -1,0 +1,24 @@
+# ── Build context exclusions ──
+# Keep builds fast and avoid leaking secrets
+
+.git
+.ssh/
+.env
+.env.*
+!.env.example
+node_modules/
+vendor/
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+tests/
+phpunit.xml
+.phpunit.cache/
+coverage/
+.github/
+ai-help/
+.agents/
+public/build/
+public/hot

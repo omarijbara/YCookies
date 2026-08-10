@@ -1,0 +1,124 @@
+### Laravel ###
+*.log
+/vendor
+node_modules/
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+Homestead.json
+Homestead.yaml
+
+### Environment & secrets ###
+# Ignore all env files; only *.example templates (with placeholder values) are committed.
+.env
+.env.*
+!.env.example
+!.env.e2e.example
+!.env.production.example
+# Never commit these — they contain (or have historically contained) real secrets.
+/app.json
+/auth.json
+/.ssh
+*.pem
+!database/cacert.pem
+
+### Internal tooling / ops docs (not for public repo) ###
+/ai-help/
+/improve/
+/.agents/
+# Stale internal planning / reverse-engineering notes (kept local, not published)
+/bor.md
+/tooltip-plan.md
+/ci_cd_plan.md
+
+### Audit & review reports (internal — do not publish) ###
+/PROJECT_REVIEW.md
+/YCookies3_AUDIT_REPORT*.md
+
+### IDE / Editor ###
+.DS_Store
+Thumbs.db
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+/.cursor/
+*.code-workspace
+.editorconfig~
+*.swp
+*.swo
+*~
+
+### PHP / Testing ###
+.phpactor.json
+.phpunit.result.cache
+/.phpunit.cache
+/test-results/
+/playwright-report/
+/blob-report/
+/e2e/.auth/
+services/proxy/test-results/
+tests/load/results.json
+
+### Database files ###
+/database/*.sqlite
+/database/*.sqlite-shm
+/database/*.sqlite-wal
+
+### Compiled / Cache ###
+/bootstrap/cache/packages.php
+/bootstrap/cache/services.php
+/bootstrap/cache/filament/
+/storage/framework/views/*.php
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+!/storage/framework/views/.gitignore
+
+### Scratch, debug & one-off dev artifacts ###
+/scratch/
+/tmp/
+/ops/artifacts/
+tmp-*
+tmp_*
+# Root-level debug/test scripts and their outputs
+/test.php
+/test-*.php
+/test_*.php
+/check_*.php
+/check_*.sh
+/check_*.ps1
+/fetch*.php
+/fetch_*.sh
+/fix_*.py
+/initialize_*.php
+/verify_*.*
+/verify*.sh
+/verify_output.html
+/*.tmp
+/*_output.txt
+/*_logs.txt
+/*_logs.json
+
+### JSON dumps / deployment snapshots ###
+/apps*.json
+/coolify_*.json
+/deploy*.json
+/deployments*.json
+/current_deployments.json
+/duftz_manifest.json
+/payload.json
+/admin_logs.json
+
+### Binary / large artifacts ###
+body.gz
+k6.exe
+
+### Reference / vendored projects ###
+/borlabs-cookie-org*/
+/improve-ypsilon/
+
+### Claude Code local state ###
+.claude/

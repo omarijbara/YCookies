@@ -1,0 +1,10 @@
+# Node proxy build exclusions
+node_modules/
+test/
+coverage/
+.nyc_output/
+*.test.js
+*.test.mjs
+*.spec.js
+README.md
+.gitignore

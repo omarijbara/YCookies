@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 07 — Mixed Case and Malformed HTML</title>
+  <!-- UPPERCASE SCRIPT TAG — Laravel regex /i matches, BLOCKED -->
+  <!-- NOTE: Laravel's preg_replace_callback returns the full tag with mutations applied -->
+  <!-- The tag casing is preserved, only type and data-attrs are added -->
+  <SCRIPT SRC="https://www.googletagmanager.com/gtag/js?id=UA-12345" type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="google-analytics" data-ycookies-service="google-analytics"></SCRIPT>
+  <!-- Mixed case — BLOCKED, tag casing preserved -->
+  <Script Src="https://connect.facebook.net/en_US/fbevents.js" type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="facebook-pixel" data-ycookies-service="facebook"></Script>
+  <!-- Extra whitespace — BLOCKED -->
+  <script   src = "https://static.hotjar.com/c/hotjar-12345.js"   type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="hotjar" data-ycookies-service="hotjar"></script>
+  <!-- Self-closing script — Laravel regex /<script\b([^>]*)>/i captures up to the > -->
+  <!-- The match[0] is '<script src="...googletagmanager..." />' but regex matches the > before / -->
+  <!-- Actually regex [^>]* captures everything until >, so ' /' is part of attributes -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=UA-99999"  type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="google-analytics" data-ycookies-service="google-analytics"/>
+  <!-- Single-quoted attributes — BLOCKED, quotes preserved -->
+  <script src='https://connect.facebook.net/fr_FR/sdk.js' type="text/template" data-ycookies-blocked="true" data-ycookies-blocker-id="facebook-pixel" data-ycookies-service="facebook"></script>
+</head>
+<body>
+  <h1>Mixed Case and Malformed HTML</h1>
+</body>
+</html>
