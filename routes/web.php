@@ -438,5 +438,7 @@ Route::get('/proxy/up', function () {
 Route::get('/invitations/accept/{token}', [\App\Http\Controllers\InvitationController::class, 'accept'])
     ->name('invitations.accept');
 
-Route::get('/test-gcm', function () { return view('test-gcm'); });
+if (app()->environment('local', 'testing')) {
+    Route::get('/test-gcm', function () { return view('test-gcm'); });
+}
 

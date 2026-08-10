@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "ypsilon/ycookies",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "YCookies — self-hosted enterprise cookie consent manager (Consent Mode v2, TCF v2.2).",
+    "keywords": ["laravel", "gdpr", "consent", "cookie-consent", "cmp", "privacy"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -24,7 +24,7 @@
         "sentry/sentry-laravel": "^4.24",
         "spatie/browsershot": "^5.2",
         "spatie/laravel-activitylog": "^4.12",
-        "spatie/laravel-backup": "*",
+        "spatie/laravel-backup": "^9.3",
         "spatie/laravel-csp": "^2.10",
         "spatie/laravel-translatable": "^6.11",
         "spatie/laravel-translation-loader": "^2.8"
