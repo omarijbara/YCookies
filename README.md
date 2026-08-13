@@ -11,7 +11,7 @@ Self-Hosted Enterprise Cookie Consent Manager.
 
 ## 🐳 Quick Start with Docker
 
-Run the full platform anywhere with Docker — no platform-specific tooling required. Pre-built multi-arch images (amd64/arm64) are published to Docker Hub: `omarijbara/ycookies` (control plane), `omarijbara/ycookies-scanner` (scanner worker with Chromium), and `omarijbara/ycookies-proxy` (consent reverse proxy).
+Run the full platform anywhere with Docker — no platform-specific tooling required. Pre-built multi-arch images (amd64/arm64) are published to Docker Hub: `ypsilondev/ycookies` (control plane), `ypsilondev/ycookies-scanner` (scanner worker with Chromium), and `ypsilondev/ycookies-proxy` (consent reverse proxy).
 
 ```bash
 git clone https://github.com/omarijbara/YCookies.git && cd YCookies/deploy

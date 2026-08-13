@@ -60,7 +60,7 @@ x-app-env: &app-env
 services:
   # ── Laravel control plane (admin panel, APIs, scheduler) ──
   app:
-    image: ${YCOOKIES_NS:-omarijbara}/ycookies:${YCOOKIES_VERSION:-latest}
+    image: ${YCOOKIES_NS:-ypsilondev}/ycookies:${YCOOKIES_VERSION:-latest}
     restart: unless-stopped
     stop_grace_period: 30s
     environment:
@@ -84,7 +84,7 @@ services:
   # ── Queue worker (default + health + observability queues) ──
   # Scale out with: docker compose up -d --scale worker=3
   worker:
-    image: ${YCOOKIES_NS:-omarijbara}/ycookies:${YCOOKIES_VERSION:-latest}
+    image: ${YCOOKIES_NS:-ypsilondev}/ycookies:${YCOOKIES_VERSION:-latest}
     restart: unless-stopped
     command: ["php", "artisan", "queue:work", "--queue=default,health,observability", "--sleep=3", "--tries=3", "--timeout=120"]
     environment:
@@ -106,7 +106,7 @@ services:
   # started from the admin UI run inside the app container, which has no
   # Chromium — their deep-scan phase is skipped (HTTP-only results).
   scanner-worker:
-    image: ${YCOOKIES_NS:-omarijbara}/ycookies-scanner:${YCOOKIES_VERSION:-latest}
+    image: ${YCOOKIES_NS:-ypsilondev}/ycookies-scanner:${YCOOKIES_VERSION:-latest}
     restart: unless-stopped
     command: ["php", "artisan", "queue:work", "--queue=scanner", "--sleep=5", "--tries=1", "--timeout=600"]
     environment:
@@ -127,7 +127,7 @@ services:
 
   # ── Node consent reverse proxy (customer traffic / data plane) ──
   proxy:
-    image: ${YCOOKIES_NS:-omarijbara}/ycookies-proxy:${YCOOKIES_VERSION:-latest}
+    image: ${YCOOKIES_NS:-ypsilondev}/ycookies-proxy:${YCOOKIES_VERSION:-latest}
     restart: unless-stopped
     stop_grace_period: 30s
     environment:
