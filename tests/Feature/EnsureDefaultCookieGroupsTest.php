@@ -15,15 +15,16 @@ class EnsureDefaultCookieGroupsTest extends TestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function artisan_command_backfills_groups_for_existing_tenant(): void
     {
+        $expected = count(EnsureDefaultCookieGroups::definitions());
         $group = Group::factory()->create();
 
         $this->artisan('ycookies:ensure-cookie-groups', ['group' => (string) $group->id])
             ->assertSuccessful();
 
-        $this->assertSame(6, $group->fresh()->cookieGroups()->count());
+        $this->assertSame($expected, $group->fresh()->cookieGroups()->count());
 
         $domain = Domain::factory()->create(['group_id' => $group->id]);
-        $this->assertSame(6, $domain->cookieGroups()->count());
+        $this->assertSame($expected, $domain->cookieGroups()->count());
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -35,6 +36,9 @@ class EnsureDefaultCookieGroupsTest extends TestCase
         EnsureDefaultCookieGroups::attachAllToDomain($domain);
         EnsureDefaultCookieGroups::attachAllToDomain($domain);
 
-        $this->assertSame(6, $domain->fresh()->cookieGroups()->count());
+        $this->assertSame(
+            count(EnsureDefaultCookieGroups::definitions()),
+            $domain->fresh()->cookieGroups()->count()
+        );
     }
 }

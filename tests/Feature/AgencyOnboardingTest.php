@@ -80,7 +80,8 @@ class AgencyOnboardingTest extends TestCase
         ]);
 
         // Assert default system cookie groups (see EnsureDefaultCookieGroups)
-        foreach (['essential', 'first_party', 'analytics', 'statistics', 'marketing', 'external_media'] as $key) {
+        $defaultKeys = array_keys(\App\Services\EnsureDefaultCookieGroups::definitions());
+        foreach ($defaultKeys as $key) {
             $this->assertDatabaseHas('cookie_groups', [
                 'group_id' => $group->id,
                 'key' => $key,
@@ -88,7 +89,7 @@ class AgencyOnboardingTest extends TestCase
         }
 
         $domain->refresh();
-        $this->assertEquals(6, $domain->cookieGroups()->count());
+        $this->assertEquals(count($defaultKeys), $domain->cookieGroups()->count());
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -124,8 +125,9 @@ class AgencyOnboardingTest extends TestCase
         ]);
 
         // No banner prepopulation, but default cookie groups are still provisioned when the domain is created
-        $this->assertEquals(6, CookieGroup::where('group_id', $group->id)->count());
+        $expected = count(\App\Services\EnsureDefaultCookieGroups::definitions());
+        $this->assertEquals($expected, CookieGroup::where('group_id', $group->id)->count());
         $domain = Domain::where('name', 'client2.test')->first();
-        $this->assertEquals(6, $domain->cookieGroups()->count());
+        $this->assertEquals($expected, $domain->cookieGroups()->count());
     }
 }

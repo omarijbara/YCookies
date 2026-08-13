@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\Process\ExecutableFinder;
 use Tests\TestCase;
 
 class DatabaseRestoreTest extends TestCase
@@ -37,9 +38,24 @@ class DatabaseRestoreTest extends TestCase
         Artisan::call('migrate:fresh', ['--force' => true]);
     }
 
+    /**
+     * Spatie's sqlite dumper shells out to the sqlite3 CLI. It is preinstalled
+     * on CI (ubuntu) runners, where these tests always run for real; on dev
+     * machines without it (common on Windows) the dump exits 255, so skip
+     * rather than fail on an environment gap.
+     */
+    protected function requireSqlite3Cli(): void
+    {
+        if ((new ExecutableFinder())->find('sqlite3') === null) {
+            $this->markTestSkipped('sqlite3 CLI is not installed — required by spatie/db-dumper for sqlite backups.');
+        }
+    }
+
     #[Test]
     public function backup_run_only_db_completes_successfully(): void
     {
+        $this->requireSqlite3Cli();
+
         // Clean up any previous test backups
         Storage::disk('local')->deleteDirectory(
             config('backup.backup.name', 'laravel-backup')
@@ -55,6 +71,8 @@ class DatabaseRestoreTest extends TestCase
     #[Test]
     public function backup_zip_contains_database_dump(): void
     {
+        $this->requireSqlite3Cli();
+
         // Ensure we have a backup
         Storage::disk('local')->deleteDirectory(
             config('backup.backup.name', 'laravel-backup')
@@ -76,6 +94,8 @@ class DatabaseRestoreTest extends TestCase
     #[Test]
     public function backup_restore_produces_valid_schema(): void
     {
+        $this->requireSqlite3Cli();
+
         // Step 1: Create a backup of the current (migrated) database
         Storage::disk('local')->deleteDirectory(
             config('backup.backup.name', 'laravel-backup')

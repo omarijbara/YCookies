@@ -13,11 +13,13 @@ use App\Models\Group;
 class EnsureDefaultCookieGroups
 {
     /**
-     * @return array<string, CookieGroup> keyed by cookie group key
+     * Canonical set of system cookie groups every tenant gets.
+     *
+     * @return array<string, array<string, mixed>> keyed by cookie group key
      */
-    public static function ensureForGroup(Group $group): array
+    public static function definitions(): array
     {
-        $definitions = [
+        return [
             'essential' => [
                 'name' => ['en' => 'Essential', 'de' => 'Notwendig'],
                 'description' => [
@@ -89,9 +91,15 @@ class EnsureDefaultCookieGroups
                 'sort_order' => 99,
             ],
         ];
+    }
 
+    /**
+     * @return array<string, CookieGroup> keyed by cookie group key
+     */
+    public static function ensureForGroup(Group $group): array
+    {
         $out = [];
-        foreach ($definitions as $key => $def) {
+        foreach (self::definitions() as $key => $def) {
             $out[$key] = CookieGroup::firstOrCreate(
                 [
                     'group_id' => $group->id,
