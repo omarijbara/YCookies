@@ -6,7 +6,10 @@ use App\Http\Controllers\TestClientController;
 // ── Test/Debug Routes (local only) ───
 // ── Main Routes ───────────────────────────────────────────
 Route::get('/', function () {
-    return view('welcome');
+    // The marketing landing page (resources/views/welcome.blade.php) is
+    // maintained outside this repository. When it is deployed alongside the
+    // app it renders as the homepage; otherwise send visitors to the panel.
+    return view()->exists('welcome') ? view('welcome') : redirect('/admin');
 });
 
 Route::get('/page', function () {

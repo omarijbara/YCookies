@@ -2,18 +2,23 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
+     * The homepage renders the marketing landing page when its (privately
+     * maintained, gitignored) view is deployed, and otherwise redirects to
+     * the admin panel — both are healthy states for a fresh install.
      */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_the_application_root_responds_without_error(): void
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        if (view()->exists('welcome')) {
+            $response->assertStatus(200);
+        } else {
+            $response->assertRedirect('/admin');
+        }
     }
 }

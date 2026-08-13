@@ -28,6 +28,9 @@ Homestead.yaml
 /ai-help/
 /improve/
 /.agents/
+# Marketing landing page — maintained privately, not part of the product repo.
+# The / route falls back to redirecting to /admin when this view is absent.
+/resources/views/welcome.blade.php
 # Stale internal planning / reverse-engineering notes (kept local, not published)
 /bor.md
 /tooltip-plan.md
