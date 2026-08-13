@@ -64,6 +64,12 @@ class ScanDomainCookies implements ShouldQueue, ShouldBeUnique
     public function __construct(Domain $domain)
     {
         $this->domain = $domain;
+        // Scans must run on the scanner queue: its dedicated worker uses the
+        // Chromium-equipped image (Dockerfile.laravel target "scanner") that
+        // deep scans require, and is resource-capped so Puppeteer cannot
+        // starve the proxy. On the default queue the deep-scan phase is
+        // silently skipped on Chromium-less containers.
+        $this->onQueue('scanner');
     }
 
     /**

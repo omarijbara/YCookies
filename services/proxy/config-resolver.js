@@ -24,6 +24,7 @@
 import { request as undiciRequest } from "undici";
 import { join } from "node:path";
 import { readdirSync } from "node:fs";
+import { createHmac } from "node:crypto";
 import Redis from "ioredis";
 import { saveSnapshot, deleteSnapshot, loadSnapshot } from "./disk-snapshot.js";
 import { signRequest, verifySignature } from "./config-verifier.js";
@@ -223,9 +224,8 @@ function isStale(entry) {
 
 export function preWarmFromDisk() {
     try {
-        const fs = require('node:fs');
         const SNAPSHOT_DIR = process.env.CONFIG_SNAPSHOT_DIR || "/data/config-cache";
-        const files = fs.readdirSync(SNAPSHOT_DIR).filter(f => f.endsWith(".json"));
+        const files = readdirSync(SNAPSHOT_DIR).filter(f => f.endsWith(".json"));
         let loaded = 0;
         for (const file of files) {
             const hostname = file.replace(/\.json$/, "");
