@@ -1,0 +1,190 @@
+# ─────────────────────────────────────────────────────────────────────
+# YCookies — universal Docker Compose stack
+#
+# Runs the full platform from published Docker Hub images on any host
+# with Docker — no Coolify, no Traefik, no platform-specific magic.
+#
+# Quick start:
+#   1. cp .env.example .env        (then fill in the required values)
+#   2. docker compose up -d
+#   3. Seed the first admin user, then log in and CHANGE THE PASSWORD:
+#        docker compose exec app php artisan db:seed --class=AdminUserSeeder
+#   4. Admin panel  → http://<host>:${APP_PORT:-8080}
+#      Consent proxy → http://<host>:${PROXY_PORT:-8081}
+#
+# Note: health-check jobs probe the public APP_URL — until DNS/TLS for
+# APP_URL actually points at this host, the health queue logs failures
+# (harmless noise on a fresh install).
+#
+# TLS: this stack speaks plain HTTP. Put any TLS terminator in front
+# (Caddy, Traefik, nginx, a cloud load balancer) and forward:
+#   your admin domain      → app:   ${APP_PORT:-8080}
+#   your customer domains  → proxy: ${PROXY_PORT:-8081}
+#
+# Images (built by .github/workflows/docker-publish.yml):
+#   ${YCOOKIES_NS}/ycookies          Laravel control plane
+#   ${YCOOKIES_NS}/ycookies-scanner  + Chromium for website scans
+#   ${YCOOKIES_NS}/ycookies-proxy    Node consent reverse proxy
+# ─────────────────────────────────────────────────────────────────────
+
+x-app-env: &app-env
+  APP_ENV: production
+  APP_DEBUG: "false"
+  APP_URL: ${APP_URL:?APP_URL is required - see deploy/.env.example}
+  APP_KEY: ${APP_KEY:?APP_KEY is required - see deploy/.env.example}
+  DB_CONNECTION: mysql
+  DB_HOST: mysql
+  DB_PORT: "3306"
+  DB_DATABASE: ${DB_DATABASE:-ycookies}
+  DB_USERNAME: ${DB_USERNAME:-ycookies}
+  DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required - see deploy/.env.example}
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  # Empty connection prefix so Laravel's proxy_cfg:* push-cache keys land where
+  # the Node proxy reads them (the cache store still applies its own CACHE_PREFIX).
+  REDIS_PREFIX: ""
+  CACHE_STORE: ${CACHE_STORE:-redis}
+  SESSION_DRIVER: ${SESSION_DRIVER:-database}
+  QUEUE_CONNECTION: database
+  # Log to stderr: visible via `docker logs`, and avoids a root-owned
+  # laravel.log on the shared storage volume that php-fpm (www-data)
+  # could not append to.
+  LOG_CHANNEL: stderr
+  PROXY_SHARED_SECRET: ${PROXY_SHARED_SECRET:?PROXY_SHARED_SECRET is required - see deploy/.env.example}
+  # Ed25519 key for signing runtime manifests (optional feature; without it,
+  # each container generates an ephemeral key and signatures break on restart).
+  RUNTIME_SIGNING_KEY: ${RUNTIME_SIGNING_KEY:-}
+  SENTRY_LARAVEL_DSN: ${SENTRY_LARAVEL_DSN:-}
+
+services:
+  # ── Laravel control plane (admin panel, APIs, scheduler) ──
+  app:
+    image: ${YCOOKIES_NS:-omarijbara}/ycookies:${YCOOKIES_VERSION:-latest}
+    restart: unless-stopped
+    stop_grace_period: 30s
+    environment:
+      <<: *app-env
+    ports:
+      - "${APP_PORT:-8080}:80"
+    volumes:
+      - app-storage:/app/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost/up || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+  # ── Queue worker (default + health + observability queues) ──
+  # Scale out with: docker compose up -d --scale worker=3
+  worker:
+    image: ${YCOOKIES_NS:-omarijbara}/ycookies:${YCOOKIES_VERSION:-latest}
+    restart: unless-stopped
+    command: ["php", "artisan", "queue:work", "--queue=default,health,observability", "--sleep=3", "--tries=3", "--timeout=120"]
+    environment:
+      <<: *app-env
+    volumes:
+      - app-storage:/app/storage
+    depends_on:
+      app:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'queue:work' || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+
+  # ── Scanner worker (website scans; ships Chromium, so capped) ──
+  # Scheduled/queued scans run here (queue "scanner"). Interactive scans
+  # started from the admin UI run inside the app container, which has no
+  # Chromium — their deep-scan phase is skipped (HTTP-only results).
+  scanner-worker:
+    image: ${YCOOKIES_NS:-omarijbara}/ycookies-scanner:${YCOOKIES_VERSION:-latest}
+    restart: unless-stopped
+    command: ["php", "artisan", "queue:work", "--queue=scanner", "--sleep=5", "--tries=1", "--timeout=600"]
+    environment:
+      <<: *app-env
+    volumes:
+      - app-storage:/app/storage
+    depends_on:
+      app:
+        condition: service_healthy
+    cpus: 0.5
+    mem_limit: 1536m
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'queue:work' || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+
+  # ── Node consent reverse proxy (customer traffic / data plane) ──
+  proxy:
+    image: ${YCOOKIES_NS:-omarijbara}/ycookies-proxy:${YCOOKIES_VERSION:-latest}
+    restart: unless-stopped
+    stop_grace_period: 30s
+    environment:
+      NODE_ENV: production
+      PROXY_PORT: "80"
+      LARAVEL_URL: http://app:80
+      PROXY_SHARED_SECRET: ${PROXY_SHARED_SECRET:?PROXY_SHARED_SECRET is required - see deploy/.env.example}
+      REDIS_URL: redis://redis:6379
+      CONFIG_CACHE_TTL: "300"
+      LOG_LEVEL: ${PROXY_LOG_LEVEL:-info}
+      SENTRY_NODE_DSN: ${SENTRY_NODE_DSN:-}
+    ports:
+      - "${PROXY_PORT:-8081}:80"
+    depends_on:
+      app:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:80/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  # ── MySQL ──
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-ycookies}
+      MYSQL_USER: ${DB_USERNAME:-ycookies}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required - see deploy/.env.example}
+      # Root password is deliberately separate from the app password.
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD is required - must differ from DB_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u $$MYSQL_USER -p$$MYSQL_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ── Redis (cache, sessions pub/sub, proxy config push) ──
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql-data:
+  redis-data:
+  app-storage:

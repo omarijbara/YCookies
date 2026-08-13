@@ -9,6 +9,19 @@ Self-Hosted Enterprise Cookie Consent Manager.
 - Revenue Scanner: 300 templates + WP-CLI suite + Levenshtein
 - SaaS Billing: Stripe MCP Pro/Agency + Domain limits + Wizard
 
+## 🐳 Quick Start with Docker
+
+Run the full platform anywhere with Docker — no platform-specific tooling required. Pre-built multi-arch images (amd64/arm64) are published to Docker Hub: `omarijbara/ycookies` (control plane), `omarijbara/ycookies-scanner` (scanner worker with Chromium), and `omarijbara/ycookies-proxy` (consent reverse proxy).
+
+```bash
+git clone https://github.com/omarijbara/YCookies.git && cd YCookies/deploy
+cp .env.example .env
+# Fill in APP_URL, APP_KEY, DB_PASSWORD, DB_ROOT_PASSWORD, PROXY_SHARED_SECRET
+docker compose up -d
+```
+
+Admin panel: `http://<host>:8080` · Consent proxy: `http://<host>:8081`. The stack speaks plain HTTP — put any TLS terminator (Caddy, Traefik, nginx) in front. See [deploy/docker-compose.yml](./deploy/docker-compose.yml) for details, or use the [Coolify installer](./INSTALLER.md) for a managed setup.
+
 ## Consent Mode v2 Setup Guide
 
 YCookies integrates seamlessly with Google Consent Mode v2 via an advanced dual-layer data logic architecture.
