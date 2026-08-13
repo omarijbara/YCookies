@@ -14,6 +14,16 @@ class Developer extends Page
     protected string $view = 'filament.pages.developer';
     protected static bool $shouldRegisterNavigation = false;
 
+    /**
+     * Runs server processes (vite build, migrations, cache clears) via the
+     * Process facade — must never be reachable by self-registered panel
+     * users. Hiding it from navigation is not authorization.
+     */
+    public static function canAccess(): bool
+    {
+        return (bool) (auth()->user()?->hasRole('super_admin') ?? false);
+    }
+
     public string $buildOutput = '';
     public bool $isBuilding = false;
 

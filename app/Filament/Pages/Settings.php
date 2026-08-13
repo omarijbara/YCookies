@@ -39,6 +39,18 @@ class Settings extends Page implements HasForms
 
     protected string $view = 'filament.pages.settings';
 
+    /**
+     * Instance-wide secrets live here (SMTP, AI/Coolify/GlitchTip tokens,
+     * SSH server access) — with open panel registration this page must be
+     * restricted to super admins. canAccess() gates both the route and
+     * navigation registration, and Livewire actions cannot run on a page
+     * the user cannot mount.
+     */
+    public static function canAccess(): bool
+    {
+        return (bool) (auth()->user()?->hasRole('super_admin') ?? false);
+    }
+
     public static function getNavigationIcon(): ?string
     {
         return 'heroicon-o-cog-6-tooth';
