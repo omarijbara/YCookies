@@ -276,14 +276,47 @@ describe('YCookiesManager Consent Engine', () => {
 
     // ── DataLayer events ─────────────────────────────────────
 
-    it('pushDataLayerEvents pushes initialization and per-category events', () => {
+    it('pushDataLayerEvents pushes initialization and per-group opt-in events (Borlabs 3.0 schema)', () => {
         window.dataLayer = [];
         mockManager.pushDataLayerEvents({ essential: true, analytics: true, marketing: false });
         const events = window.dataLayer.map(e => e.event);
         expect(events).toContain('ycookies_initialized');
-        expect(events).toContain('ycookies_consent_essential');
-        expect(events).toContain('ycookies_consent_analytics');
-        expect(events).not.toContain('ycookies_consent_marketing');
+        expect(events).toContain('ycookies-opt-in-essential');
+        expect(events).toContain('ycookies-opt-in-analytics');
+        expect(events).not.toContain('ycookies-opt-in-marketing');
+
+        // Granted-group events carry the GTM trigger payload
+        const analyticsEvent = window.dataLayer.find(e => e.event === 'ycookies-opt-in-analytics');
+        expect(analyticsEvent).toMatchObject({ ycookies_group: 'analytics', ycookies_granted: true });
+    });
+
+    it('pushDataLayerEvents pushes service-level opt-in events for granted services in granted groups', () => {
+        window.dataLayer = [];
+        mockManager.config = {
+            ...mockManager.config,
+            cookie_groups: [
+                {
+                    key: 'statistics',
+                    services: [{ key: 'google-analytics' }, { key: 'matomo' }],
+                },
+            ],
+        };
+        mockManager.pushDataLayerEvents({ statistics: true, 'google-analytics': true, matomo: false });
+        const events = window.dataLayer.map(e => e.event);
+        expect(events).toContain('ycookies-opt-in-statistics');
+        expect(events).toContain('ycookies-opt-in-google-analytics');
+        expect(events).not.toContain('ycookies-opt-in-matomo');
+
+        // The consent-state loop also emits a group-shaped event for the raw
+        // service key, so match the service-shaped one specifically.
+        const serviceEvent = window.dataLayer.find(
+            e => e.event === 'ycookies-opt-in-google-analytics' && e.ycookies_service
+        );
+        expect(serviceEvent).toMatchObject({
+            ycookies_service: 'google-analytics',
+            ycookies_group: 'statistics',
+            ycookies_granted: true,
+        });
     });
 
     // ── Consent version tracking ─────────────────────────────
