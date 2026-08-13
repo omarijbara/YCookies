@@ -129,7 +129,7 @@ class RevisionPublisher
         // 1. Mirror manifest to Redis for proxy cache acceleration
         try {
             $redisKey = "manifest:{$domain->name}";
-            Redis::connection('default')->setex(
+            Redis::connection('proxy')->setex(
                 $redisKey,
                 3600, // 1 hour TTL
                 $revision->manifest_json,

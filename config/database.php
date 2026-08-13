@@ -196,6 +196,20 @@ return [
             'prefix' => '',
         ],
 
+        // Keys shared with the Node proxy (proxy_cfg:{host}, manifest:{host}),
+        // which reads them RAW via ioredis. Like 'pubsub', this connection must
+        // bypass the global 'options.prefix' — writing them through 'default'
+        // prefixes the key and the proxy never sees the pushed config.
+        'proxy' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_DB', '0'),
+            'prefix' => '',
+        ],
+
 
     ],
 

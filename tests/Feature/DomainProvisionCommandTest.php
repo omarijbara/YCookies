@@ -19,7 +19,7 @@ class DomainProvisionCommandTest extends TestCase
         $redisMock->shouldReceive('get')->andReturn('{"mock":"json"}');
         $redisMock->shouldReceive('publish')->andReturn(1);
 
-        Redis::shouldReceive('connection')->with('default')->andReturn($redisMock);
+        Redis::shouldReceive('connection')->with('proxy')->andReturn($redisMock);
         Redis::shouldReceive('connection')->with('pubsub')->andReturn($redisMock);
 
         $this->artisan('domain:provision', ['name' => 'duftz.de'])

@@ -87,7 +87,7 @@ class DomainProvisionCommand extends Command
         $this->info("✔ Pub/Sub Push invalidated edge cache.");
 
         // 6. Test Cache Accessibility (Mock test to ensure we can read it)
-        $redisCfg = \Illuminate\Support\Facades\Redis::connection('default')->get("proxy_cfg:{$name}");
+        $redisCfg = \Illuminate\Support\Facades\Redis::connection('proxy')->get("proxy_cfg:{$name}");
         if ($redisCfg) {
             $this->info("✔ Redis Fallback Cache validated (" . strlen($redisCfg) . " bytes).");
         } else {

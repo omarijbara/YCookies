@@ -101,7 +101,7 @@ class DomainObserver
         // Without this, deleted domains continue being served from
         // stale proxy_cfg:{host} for up to CACHE_TTL + MAX_STALE_MS (~15 min).
         try {
-            Redis::connection('default')->del("proxy_cfg:{$domain->name}");
+            Redis::connection('proxy')->del("proxy_cfg:{$domain->name}");
         } catch (\Throwable $e) {
             Log::warning("Redis cleanup failed for deleted domain {$domain->name}: {$e->getMessage()}");
         }
@@ -168,7 +168,7 @@ class DomainObserver
 
                 // 2. Warm Node Proxy Redis directly (Raw JSON string)
                 // This eliminates the proxy taking an HTTP 1500ms hit.
-                Redis::connection('default')->setex(
+                Redis::connection('proxy')->setex(
                     "proxy_cfg:{$domain->name}",
                     3600,
                     json_encode($config)
@@ -176,7 +176,7 @@ class DomainObserver
             } else {
                 // Config was nulled (e.g. proxy disabled), clear it
                 Cache::forget("proxy_config:{$domain->name}");
-                Redis::connection('default')->del("proxy_cfg:{$domain->name}");
+                Redis::connection('proxy')->del("proxy_cfg:{$domain->name}");
             }
         } catch (\Throwable $e) {
             Log::error("Failed to pre-warm config for domain {$domain->name}: {$e->getMessage()}");

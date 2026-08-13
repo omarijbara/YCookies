@@ -40,8 +40,9 @@ x-app-env: &app-env
   DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required - see deploy/.env.example}
   REDIS_HOST: redis
   REDIS_PORT: "6379"
-  # Empty connection prefix so Laravel's proxy_cfg:* push-cache keys land where
-  # the Node proxy reads them (the cache store still applies its own CACHE_PREFIX).
+  # Defense-in-depth: keys shared with the Node proxy already go through the
+  # prefixless 'proxy'/'pubsub' connections in code; an empty global prefix
+  # also protects any future shared keys (cache still applies CACHE_PREFIX).
   REDIS_PREFIX: ""
   CACHE_STORE: ${CACHE_STORE:-redis}
   SESSION_DRIVER: ${SESSION_DRIVER:-database}
