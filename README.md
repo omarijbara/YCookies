@@ -54,3 +54,7 @@ See the full [GTM Integration Guide](./docs/gtm-integration.md) for variable and
 - [Custom Services & Webhooks](./docs/custom-services-webhooks.md)
 - [Migration von anderen CMPs](./docs/migration-guide.md)
 - [Troubleshooting FAQ](./docs/troubleshooting-faq.md)
+
+## License
+
+YCookies is source-available under the [Elastic License 2.0](./LICENSE): free to use, modify, and self-host — including commercially — but you may not offer YCookies itself to third parties as a hosted/managed service or circumvent its license/plan-limit functionality.

@@ -4,7 +4,7 @@
     "type": "project",
     "description": "YCookies — self-hosted enterprise cookie consent manager (Consent Mode v2, TCF v2.2).",
     "keywords": ["laravel", "gdpr", "consent", "cookie-consent", "cmp", "privacy"],
-    "license": "MIT",
+    "license": "Elastic-2.0",
     "require": {
         "php": "^8.2",
         "bezhansalleh/filament-language-switch": "^4.1",
