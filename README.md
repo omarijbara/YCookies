@@ -22,6 +22,8 @@ docker compose up -d
 
 Admin panel: `http://<host>:8080` · Consent proxy: `http://<host>:8081`. The stack speaks plain HTTP — put any TLS terminator (Caddy, Traefik, nginx) in front. See [deploy/docker-compose.yml](./deploy/docker-compose.yml) for details, or use the [Coolify installer](./INSTALLER.md) for a managed setup.
 
+Maintainers can publish the images from any Docker host — no CI required: `docker login`, then [`./scripts/publish-images.sh v1.0.0`](./scripts/publish-images.sh) (multi-arch; `PLATFORMS=linux/amd64` for a faster amd64-only build).
+
 ## Consent Mode v2 Setup Guide
 
 YCookies integrates seamlessly with Google Consent Mode v2 via an advanced dual-layer data logic architecture.
